@@ -1,0 +1,186 @@
+Create new Project:
+rails new proj_name –d mysql
+Bundles and Gems:
+gem install bundler
+cd project_folder
+bundle install 
+GIT:
+git init
+git remote add origin (link to repo)
+git add.
+git remote rm origin (remove)
+git add -A
+git commit –m “start”
+git push
+Running a SQL server:
+mysql-ctl start
+mysql-ctl stop
+creating root user
+SET PASSWORD FOR 'bob'@'%.example.org' = PASSWORD('auth_string');
+or
+mysql –u root -p (login)
+
+
+then
+https://docs.c9.io/docs/setting-up-mysql
+go to config->database.yml and write username and password.
+
+Accessing a Project:
+run the server by rails s –b $IP –p $PORT
+access it via URL
+####################################
+
+Controller,Model,View:
+rails generate controller contr-name action-name (action name is optional and you can also give multiple actions).
+
+Routes:
+get “demo/index”  means
+match “demo/index”,
+	:to => “demo#index”,
+	:via => :get
+	Default route
+
+General route:
+match ‘controller(/:action(/:id)), :via => get
+
+###########################
+Embedding Ruby in erb:
+<% code %> only executes the code
+<%= code %> displays the result of code (ruby code)
+URLs:
+<a href=”/demo/hello”>Hello page </a>
+or
+<%= link_to(‘text’,{:controller=>”demo”,:action=>”hello”}) %>
+
+#########################
+
+Database:
+1 table = 1 model
+Model name singular, table name plural
+4 mySQL commands
+SHOW DATABASES;
+CREATE DATABASE db_name; (written in yml file)
+USE db_name;
+DROP DATABASE db_name;
+SHOW TABLES;
+SHOW FIELDS FROM table_name;
+Database Migration:
+rails generate migration mgr_name (that could be anything)
+Rake db:create
+Rake db:migrate (every time you make some change, you need to run this.)
+Creating new User for mySQL and giving permissions to access:
+CREATE USER 'custom'@'localhost' IDENTIFIED BY 'password';
+#GRANT ALL PRIVILIGES ON db_name.* TO 'custom'@'localhost';
+GRANT ALL ON db_name.* TO 'custom'@'localhost' IDENTIFIED BY 'password';
+
+SHOW GRANTS FOR ‘username’@’localhost’;
+YML:
+YML means this file is in YAML format 
+YAML ain’t markup language;
+
+
+1.	Rails generate model volunteers name:string etc (this will create a model and a migration)
+2.	Rake db:migrate (table added to database)
+3.	Rake db:rollback (table deleted from database)
+4.	Manually create controller and views
+5.	For one set of views, one controller
+6.	Set routes. First function will be called in controller and then page code will run when we’ll type URL
+7.	User.create(username: "databurj",password: "windows787!")
+
+############################################
+
+How to create a copy of project
+
+1.	Clone github
+2.	Bundle install
+3.	Mysql-ctl start
+4.	Mysqladmin –u root password ‘bharwa007’
+5.	Mysql –u root –p
+6.	Rake db:create
+7.	Rake db:migrate
+8.	Rake db:seed
+9.	Login to databurj using following credentials username: databurj password: windows787!
+
+
+#############################################
+git repo link: 
+https://github.com/databurj/databurjgit
+
+###############################################
+stop server from everywhere: kill -INT $(cat tmp/pids/server.pid)
+
+
+#############################################
+
+To Do List:
+
+Sohail:
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+removed following line from application.html.erb line 14
+if we need to add columns in database model, so do it now, and finalize it first
+in 'add student' Name field should have length at least 3
+phone number length must be 15 in bootstrap_form (because it is written in model validation)
+accomodate newly added student fields in excel download and student's view
+
+Solved: flash notice fix krdo bhai (har page per 'flash notice' hona chaiye, ta ke late nazar na aye)
+addition of fields in student table: secndry phone number, marks/percntge, monthly income
+front-end of 'add instructor', 'add section', 'instructor_index'
+pdf download and upload optional
+student form editings:
+1. tracking id uniquness validation removal
+
+front end of undertaking text(reorder instructions)
+
+tab remove and remove from routes.rb also: LMS, attendance, hostel (keep the database tables and controllers etc)
+
+
+Highly Important: fix student footer
+
+Owais:
+
+Association of models
+Fix routing of links like (show, edit)and enable all model validations (which should also be implemented in form)
+Voucher table, editable by admin
+
+Solved: instructors wala masla hal
+
+Saqib:
+khali file ko upload accept na kare
+
+Later for Saqib:
+If a user is logged in, he cannot see a login page (redirect to dashboard)
+'add new element' forms must have good look
+
+tab remove and remove from routes.rb also: LMS, attendance, hostel (keep the database tables and controllers etc)
+Solved: Student login, instructor login
+Solved: excel download (data from tables of students)
+
+
+
+
+
+Later To DO list:
+
+1. implement each and every validation on input form. 
+2. excel upload/download
+3. filters on enteries
+
+
+List before completing:
+4. Our app will also work when following commands are  commented in routes.rb
+resources 
+
+
+TOP PRIORITY ISSUES:
+0. we need to hide db username and password and after that change password as well
+1. Session ids issue
+2. App Security
+3. Deployment (alongwith pushing any time we want)
+4. summernote
+5. search
+
+Editings required on student end as discussed with sharjeel:
+1) Section is going to be added later
+2) email address, phone number and secondary phone number should be editable on student end
+3) remove monthly income option
+4) change the design, it should be user friendly.

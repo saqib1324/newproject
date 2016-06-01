@@ -4,12 +4,13 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
+
 defaults: &defaults
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: ENV["sql_username"]
-  password: ENV["sql_password"]
+  username: root
+  password: '#ubuntu456'
   host: localhost
 
 development:
