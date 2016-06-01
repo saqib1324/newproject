@@ -10,7 +10,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'angular-rails-templates'
 gem 'angularjs-rails'
 
-# Use SCSS for stylesheets
+# For password protection on github
+gem 'figaro'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
