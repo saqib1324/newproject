@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
   root 'home#index'
+  get 'student/edit'
+  get 'student/new'
+  get 'student/index'
+  get 'coaching_sessions/index'
+  get "activate_coaching_sessions" => "coaching_sessions#activate"
 
   devise_for :users, controllers: { registrations: "registrations"}
+  resources :coaching_sessions
+  resources :students do
+    collection { post :import }
+  end
+  resources :home
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -56,4 +66,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  match ':controller(/:action(/:id))', :via => [:get, :post]
 end

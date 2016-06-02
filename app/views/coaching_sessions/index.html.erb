@@ -1,0 +1,74 @@
+
+ <div id="dashboard-con">
+   
+    <div class="row">
+      <div class="col-md-6 dashboard-left-cell">
+        <div class="admin-content-con">
+          <header class="clearfix">
+            <h5 class="pull-left">All Sessions</h5>
+          </header>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @coaching_sessions.each do |coaching_session| %>
+                <tr>
+                  <td><%= coaching_session.name %></td>
+                  <td><%= coaching_session.status %></td>
+                  <td>
+                    <% if coaching_session.status %>
+                    <%= link_to 'Deactivate', activate_coaching_sessions_path( :id => coaching_session.id), :class => 'btn btn-xs btn-primary', :role => "button" %>
+                    <% else %>
+                     <%= link_to 'Activate', activate_coaching_sessions_path( :id => coaching_session.id), :class => 'btn btn-xs btn-primary', :role => "button" %>
+                    <% end %>
+                    <%= link_to 'Delete', coaching_session, method: :delete, :class => 'btn btn-xs btn-danger', :role => "button", :data => {confirm: 'Are you sure you want to delete this?'} %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      <% @current_session = CoachingSession.where(:status => true).take %>
+      <div class="col-md-6 dashboard-right-cell">
+        <div class="admin-content-con">
+          <header>
+            <h5>Add New Session</h5>
+          </header>
+          <div class="content-inner">
+            <div class="form-wrapper">
+              <%= bootstrap_form_for CoachingSession.new do |f| %>
+                <%= f.errors_on :coaching_session %>
+                <%= f.text_field :name, label: "Session Year", :required => true%>
+                <div class="clearfix" type = "submit">
+                  <%= f.submit %>
+                  <% end %>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="admin-content-con clearfix">
+          <header>
+            <strong><h5>Active Session</h5></strong>
+          </header>
+          <% if @current_session %>
+            Current Active session is <%= @current_session.name %>
+          <% else %>
+            Currently no session is active.
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>

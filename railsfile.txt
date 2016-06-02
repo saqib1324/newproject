@@ -173,6 +173,7 @@ resources
 
 TOP PRIORITY ISSUES:
 0. we need to hide db username and password and after that change password as well
+0.1 implement login checks using devise on all pages and do authorization as well
 1. Session ids issue
 2. App Security
 3. Deployment (alongwith pushing any time we want)

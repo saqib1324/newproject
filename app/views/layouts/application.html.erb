@@ -18,6 +18,44 @@
         <!-- side menu -->
         <div class="col-md-2 col-sm-1  hidden-xs display-table-cell valign-top" id="side-menu">
           <h1><span>Data<span><b>Burj</b></span></span></h1>
+          
+          
+          <ul>
+          
+                      <li class="link settings-btn">
+              <a href="/home">
+                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-xs">Dashboard</span>
+              </a>
+              
+            </li>
+            
+            <li class="link">
+              <a href="/coaching_sessions">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-xs">Session Management</span>
+              </a>
+            </li>
+            
+            <li class="link">
+              <a href="#collapse-post" data-toggle="collapse" aria-controls="collapse-post">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-xs">Students</span>
+              </a>
+              <ul class="collapse collapseable" id="collapse-post">
+                <li>
+                  <%= link_to 'View Students', students_path %>
+                </li>
+                <li>
+                  <%= link_to 'Add Students', new_student_path %>
+                </li>
+              </ul>
+            </li>
+
+        </ul>  
+          
+          
+          
         </div>
         <div class="col-md-10 col-sm-11 display-table-cell valign-top">
           <div class="row">

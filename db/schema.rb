@@ -11,7 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601181947) do
+ActiveRecord::Schema.define(version: 20160602105020) do
+
+  create_table "coaching_sessions", force: :cascade do |t|
+    t.string   "name",       limit: 50
+    t.boolean  "status",                default: false, null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  create_table "students", primary_key: "tracking_id", force: :cascade do |t|
+    t.string   "name",                   limit: 255
+    t.string   "session",                limit: 255
+    t.float    "matric_percentage",      limit: 24
+    t.integer  "monthly_income",         limit: 4
+    t.string   "SEX",                    limit: 1
+    t.string   "section",                limit: 255
+    t.string   "city",                   limit: 255
+    t.string   "father_name",            limit: 255
+    t.string   "DOB",                    limit: 255
+    t.string   "email",                  limit: 255
+    t.string   "phone_number",           limit: 255
+    t.string   "secondary_phone_number", limit: 255
+    t.string   "mailing_address",        limit: 255
+    t.string   "username",               limit: 255
+    t.string   "password_digest",        limit: 255
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "students", ["section"], name: "index_students_on_section", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "role",                   limit: 255, default: "", null: false
