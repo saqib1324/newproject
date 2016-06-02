@@ -12,5 +12,21 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require turbolinks
-//= require_tree .
+//= require_tree
+
+
+$(document).ready(function() {
+	$('[data-toggle="offcanvas"]').click(function() {
+		$('#side-menu').toggleClass('hidden-xs');
+	});
+});
+
+$(document).ready(function() {
+ setTimeout(function(){
+  $('#notice_wrapper').fadeOut(("slow"), function() {
+   $(this).remove();
+  });
+ }, 4000);
+});

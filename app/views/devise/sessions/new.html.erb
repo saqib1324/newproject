@@ -1,28 +1,72 @@
-<h2>Log in</h2>
+<!DOCTYPE html>
+<html lang="en">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<head>
+	<meta charset="utf-8">
+	<title>DataBurj Sign In</title>
 
-  
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+	<!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+</head>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+<body background = "/pic.jpg">
+	<center>
+	<!--<div class="container">-->
+		<div class="top">
+			<h1 id="title"><span id="logo">Data<span><b>Burj</b></span></span></h1>
+		</div>
+		
+		<div class="login-box animated rubberBand">
+			<div class="box-header">
+				<h2>Log In</h2>
+			</div>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <table>
+            	<center>
+                <tr>
+                    <label for="username">EMAIL</label>
+					<br/>
+                    <center><%= f.email_field :email, autofocus: true %></center>
+                </tr>
+                <tr>
+                	<label for="password">PASSWORD</label>
+					<center><%= f.password_field :password, autocomplete: "off" %></center>
+				</tr>
+				  <% if devise_mapping.rememberable? -%>
+				    <div class="field">
+				 
+				      <%= f.check_box :remember_me %>
+				         <label>Remember me</label>
+				    </div>
+				  <% end -%>
+                <center class = "vakhri"><%= f.submit "Log in" %></center>
+                <div class = 'small'><%= link_to "Forgot your password?", new_password_path(resource_name) %></div>
+                </center>
+            </table>
+             <% end %>
+            <% if flash[:notice] %>
+    			<div><font color = "#1ab394"><%= flash[:notice] %></font></div>
+  			<% end %>
+		</div>
+	</center>
+</body>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+<script>
+	$(document).ready(function () {
+    	$('#logo').addClass('animated swing');
+    	$("input:text:visible:first").focus();
+	});
+	$('#username').focus(function() {
+		$('label[for="username"]').addClass('selected');
+	});
+	$('#username').blur(function() {
+		$('label[for="username"]').removeClass('selected');
+	});
+	$('#password').focus(function() {
+		$('label[for="password"]').addClass('selected');
+	});
+	$('#password').blur(function() {
+		$('label[for="password"]').removeClass('selected');
+	});
+</script>
+</html>

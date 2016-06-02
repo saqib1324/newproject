@@ -9,7 +9,46 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
+ *= require rails_bootstrap_forms
  *= require_tree .
  *= require_self
+ *= require animate
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#notice_wrapper{
+    position: absolute;
+    top: 10px;
+    left: 300px;
+    width: 100;
+    z-index: 999;
+    /*background: #1ab394 0.05;*/
+    background: rgba(135,216,211,0.05);
+    border-radius: 10px;
+
+
+}
+.notice{
+    padding: 1rem 3rem;
+    text-align: center;
+    /*margin: auto;*/
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    background: #1ab394;
+    border-radius: 10px;
+    /*top: 5;*/
+}
+.divider{
+    width: 125px;
+    /*height: auto;*/
+    display: inline-block;
+}
+
+
+
+
+
+

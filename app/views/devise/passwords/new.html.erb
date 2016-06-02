@@ -1,16 +1,64 @@
-<h2>Forgot your password?</h2>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>DataBurj Sign In</title>
+
+	<!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+</head>
+
+<body background = "/pic.jpg">
+	<center>
+	<!--<div class="container">-->
+		<div class="top">
+			<h1 id="title"><span id="logo">Data<span><b>Burj</b></span></span></h1>
+		</div>
+		
+		<div class="login-box animated rubberBand">
+			<div class="box-header">
+				<h2>Reset Password</h2>
+			</div>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
+            <table>
+            	<center>
+                <tr>
+                    <label for="username">EMAIL</label>
+					<br/>
+                    <center><%= f.email_field :email, autofocus: true %></center>
+                </tr>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+                <center class = "vakhri"><%= f.submit "Send me reset password instructions" %></center>
+                <%= link_to "Log in", new_session_path(resource_name) %>
+                </center>
+            </table>
+             <% end %>
+            <% if flash[:notice] %>
+    			<div><font color = "#1ab394"><%= flash[:notice] %></font></div>
+  			<% end %>
+		</div>
+	</center>
+</body>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+<script>
+	$(document).ready(function () {
+    	$('#logo').addClass('animated swing');
+    	$("input:text:visible:first").focus();
+	});
+	$('#username').focus(function() {
+		$('label[for="username"]').addClass('selected');
+	});
+	$('#username').blur(function() {
+		$('label[for="username"]').removeClass('selected');
+	});
+	$('#password').focus(function() {
+		$('label[for="password"]').addClass('selected');
+	});
+	$('#password').blur(function() {
+		$('label[for="password"]').removeClass('selected');
+	});
+</script>
+</html>
