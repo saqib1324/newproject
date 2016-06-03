@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
-  get 'student/edit'
-  get 'student/new'
-  get 'student/index'
+  
+  get 'students/import_sample'
   get 'coaching_sessions/index'
   get "activate_coaching_sessions" => "coaching_sessions#activate"
 

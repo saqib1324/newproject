@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def require_session
     unless CoachingSession.where(:status => true).take
       flash[:notice] = "No session activated"
-      redirect_to url_for(:controller => :coaching_session)
+      redirect_to url_for(:controller => :coaching_sessions)
       return false
     else
       return true

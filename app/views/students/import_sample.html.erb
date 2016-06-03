@@ -1,0 +1,12 @@
+<div class="admin-content-con">
+    <br>
+    <%= form_tag :controller => :students, :action => :export_sample do %>
+        <%= submit_tag "Download sample file", class: "btn btn-xs btn-primary pull-left", id: "export" %>
+    <% end %> 
+    <br><br>
+    <%= form_tag import_students_path, multipart: true do %>
+        <%= file_field_tag :file %>
+        <br>
+        <%= submit_tag "Import" %>
+    <% end %>
+</div>

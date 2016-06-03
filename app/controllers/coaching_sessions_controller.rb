@@ -46,14 +46,18 @@ class CoachingSessionsController < ApplicationController
     end
     def activate
         @coaching_session=CoachingSession.find(params[:id])
-        @active = CoachingSession.where(:status => true).take
-        if @active
-            @active.update(:status => false)
+        if @coaching_session.status
+            @coaching_session.update(:status => false)
+        else
+            @active = CoachingSession.where(:status => true).take
+            if @active
+                @active.update(:status => false)
+            end
+            if @coaching_session
+                @coaching_session.update(:status => true)
+            end
         end
-        if @coaching_session
-            @coaching_session.update(:status => true)
-            redirect_to url_for(:controller => :coaching_sessions), notice: 'Session was successfully updated'
-        end
+        redirect_to url_for(:controller => :coaching_sessions), notice: 'Session was successfully updated'
     end
     def coaching_session_params
       params.require(:coaching_session).permit(:coaching_session_id, :name,:status )

@@ -2,8 +2,12 @@ class StudentsController < ApplicationController
   def index
     if params[:sort]
       @students=Student.order(params[:sort])
+      @active_session = CoachingSession.where(:status => true).take
+      @students = @students.where(:session => @active_session.name)
     else
       @students = Student.all
+      @active_session = CoachingSession.where(:status => true).take
+      @students = @students.where(:session => @active_session.name)
     end
     
   end
@@ -63,7 +67,34 @@ class StudentsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def import
+    Student.import(params[:file])
+    redirect_to students_path, notice: "Students imported"
+  end
+  def import_sample
+  end
+  def export
+    package = Axlsx::Package.new
+    workbook = package.workbook
+    workbook.add_worksheet(name: "Basic work sheet") do |sheet|
+      sheet.add_row ["name", "tracking_id", "father_name","matric_percentage", "session", "DOB", "SEX", "city","email","phone_number", "secondary_phone_number", "mailing_address", "username"]
+      @students=Student.all
+      @active_session = CoachingSession.where(:status => true).take
+      @students = @students.where(:session => @active_session.name)
+      @students.each do |st|
+        sheet.add_row [st.name, st.tracking_id, st.father_name,st.matric_percentage, st.session, st.DOB, st.SEX, st.city,st.email, st.phone_number, st.secondary_phone_number, st.mailing_address, st.username]
+      end
+    end
+    send_data package.to_stream.read, :filename => "students.xlsx"
+  end
+  def export_sample
+    package = Axlsx::Package.new
+    workbook = package.workbook
+    workbook.add_worksheet(name: "Basic work sheet") do |sheet|
+      sheet.add_row ["name", "tracking_id", "father_name", "matric_percentage", "monthly_income", "section", "DOB", "SEX", "city","email","phone_number", "secondary_phone_number", "mailing_address", "username","password"]
+    end
+    send_data package.to_stream.read, :filename => "students.xlsx"
+  end
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_student

@@ -1,2 +1,109 @@
-<h1>Students#index</h1>
-<p>Find me in app/views/students/index.html.erb</p>
+<div class = "animated fadeIn" ng-app="Studentsr" ng-controller="StudentCtrl">
+  <div id="dashboard-con">
+    <div>
+      <ng-view></ng-view>
+      <div class="dashboard-left-cell">
+        <div class="admin-content-con">
+          <header class="clearfix">
+            <!--<div class = "divider pull-left">-->
+            <strong><h5 class="pull-left page_title">All Students</h5></strong>
+            <input type="text" ng-model="searchString" placeholder="Search Students"/>
+            <div class = "divider pull-right">
+              <%= form_tag :controller => :students, :action => :export do %>
+                <%= submit_tag "Download in Excel", class: "btn btn-xs btn-primary pull-right", id: "export" %>
+              <% end %>
+            </div>
+            <div class = "divider pull-right">
+              <%= link_to "Import from Excel", url_for(:controller => :students, :action => :import_sample), :class => "btn btn-xs btn-primary pull-right", :role => "button" %> 
+            </div>
+          </header>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%=  link_to :sort => "name", :admin => "students_view" do %>
+                <strong><font size="3"> Name </font></strong></span><span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"><% end %></th>
+                <th><%=  link_to :sort => "tracking_id", :admin => "students_view" do %>
+                <strong><font size="3"> Tracking ID </font></strong></span><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"><% end %></th>            
+                <th><%=  link_to :sort => "matric_percentage", :admin => "students_view" do %>
+                <strong><font size="3"> Matric %age </font></strong></span><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"><% end %></th>            
+                <th><%=  link_to :sort => "monthly_income", :admin => "students_view" do %>
+                <strong><font size="3"> Income </font></strong></span><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"><% end %></th>            
+                <th><%=  link_to :sort => "section", :admin => "students_view" do %>
+                <strong><font size="3"> Section </font></strong></span><span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"><% end %></th>
+                
+                <th>Gender</th>
+                <th>City</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="student in students | searchFor:searchString">
+                  <td>{{student.name}}</td>
+                  <td>{{student.tracking_id}}</td>
+                  <td>{{student.matric_percentage}}</td>
+                  <td>{{student.monthly_income}}</td>
+                  <td>{{student.section}}</td>
+                  <td>{{student.SEX}}</td>
+                  <td>{{student.city}}</td>
+                  <td>
+                    <%= link_to 'Edit', URI::unescape(students_path), :class => 'btn btn-xs btn-warning', :role => "button" %>
+                    <%= link_to 'View', URI::unescape(students_path), :class => 'btn btn-xs btn-primary', :role => "button" %>
+                    <%= link_to 'Delete', URI::unescape('students/{{student.id}}'), method: :delete, :class => 'btn btn-xs btn-danger', :role => "button", :data => {confirm: 'Are you sure you want to delete this?'} %>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var stdMod = angular.module('Studentsr', []); 
+  stdMod.controller('StudentCtrl', function ($rootScope, $http) {
+    $rootScope.students = []
+    <% if @students!=nil%>
+      <% @students.each do |student| %>
+        $rootScope.students.push({
+          id: '<%= student.id %>',
+          name:'<%= student.name %>',
+          tracking_id: '<%= student.tracking_id %>',
+          matric_percentage: '<%= student.matric_percentage %>',
+          monthly_income: '<%= student.monthly_income %>',
+          section: '<%= student.section %>',
+          SEX: '<%= student.SEX%>',
+          city: '<%= student.city%>'
+        })
+    <% end %>
+  <% end %>
+  });
+  stdMod.filter('searchFor', function(){
+  return function(arr, searchString){
+    if(!searchString){
+      return arr;
+    }
+    var result = [];
+    searchString = searchString.toLowerCase();
+    angular.forEach(arr, function(item){
+      if(item.name.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.tracking_id.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.matric_percentage.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.monthly_income.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.section.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.SEX.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.city.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }
+    });
+    return result;
+  };
+  });
+</script>
