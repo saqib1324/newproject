@@ -1,0 +1,20 @@
+  <% if @undertaking == "already_uploaded" %> 
+    Instructions: Yaar aik bar hi sahi dfa daal deta
+    <p><%= link_to "Upload File again", :controller => "undertakings", :action => "destroy" %></p>
+  <% else %>
+    <%= form_for(@undertaking, :html => {:multipart => true}) do |f| %>
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :file_name %>
+      </div>
+      <div class="field">
+        <%= f.label :data %>
+        <%= f.file_field :data %>
+      </div>
+      <% tracking_id = @id %>
+      <div class="actions">
+        <%= f.submit "Upload" %>
+      </div>
+    <% end %>
+  <% end %>
+  <br/><br/>

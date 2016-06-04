@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602105020) do
+ActiveRecord::Schema.define(version: 20160604001904) do
 
   create_table "coaching_sessions", force: :cascade do |t|
     t.string   "name",       limit: 50
@@ -41,6 +41,25 @@ ActiveRecord::Schema.define(version: 20160602105020) do
   end
 
   add_index "students", ["section"], name: "index_students_on_section", using: :btree
+
+  create_table "undertaking_texts", force: :cascade do |t|
+    t.text     "display_text", limit: 65535
+    t.string   "session",      limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "undertakings", primary_key: "tracking_id", force: :cascade do |t|
+    t.boolean  "status",                        default: false
+    t.boolean  "admin_status",                  default: false
+    t.string   "file_name",    limit: 255,      default: "null"
+    t.binary   "data",         limit: 16777215
+    t.string   "mime_type",    limit: 255,      default: "null"
+    t.string   "via",          limit: 255
+    t.string   "session",      limit: 255
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "role",                   limit: 255, default: "", null: false

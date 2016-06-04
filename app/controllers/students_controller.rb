@@ -1,14 +1,23 @@
 class StudentsController < ApplicationController
   def index
     if params[:sort]
-      @students=Student.order(params[:sort])
+      # @temp = params[:sort]
+      # @students=Student.order(@temp: :desc )
+      @students=Student.order(params[:sort] + ' ' + params[:direction])
       @active_session = CoachingSession.where(:status => true).take
       @students = @students.where(:session => @active_session.name)
+      @link = "students_view"
     else
       @students = Student.all
       @active_session = CoachingSession.where(:status => true).take
       @students = @students.where(:session => @active_session.name)
+      @link = "students_view"
     end
+    if params[:admin] == "view_student"
+      @student=Student.find(params[:id])
+      @link = "view_student"
+    end
+      
     
   end
   def show
@@ -24,12 +33,18 @@ class StudentsController < ApplicationController
   def new
     @student = Student.new
   end
+  def view
+    @student=Student.find(params[:id])
+  end
   def create
     @student = Student.new(student_params)
     @active_session = CoachingSession.where(:status => true).take
     @student.session = @active_session.name
     respond_to do |format|
       if @student.save
+        User.create!(:email => @student.username,:password => @student.password,:role => "student")
+        # @name = CoachingSession.where(:status => true).take.name
+        # Undertaking.create!(:tracking_id => params[:id],:data => Null,:via => "Mail",:session => @name,:admin_status => false,:status => false)
         flash[:notice] = 'Student was successfully created.'
         format.html { redirect_to students_path}
         format.json { render :show, status: :created, location: @student }
@@ -58,7 +73,9 @@ class StudentsController < ApplicationController
   
   def destroy
     @student=Student.find(params[:id])
+    @user = User.where(:email => @student.username).take
     @student.destroy
+    @user.destroy
     respond_to do |format|
       # format.html { redirect_to students_url}
       format.html { redirect_to students_path }

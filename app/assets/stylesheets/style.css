@@ -31,7 +31,7 @@ h1#title span span {
 
 h2 {
 	text-transform: uppercase;
-	color: white;
+	/*color: white;*/
 	font-weight: 400;
 	letter-spacing: 1px;
 	font-size: 1.4em;

@@ -1,0 +1,20 @@
+<div class = "animated fadeIn">
+  <div id="content">
+    <header>
+      <strong><class="page_title">Edit Undertaking Text</strong>
+    </header>
+    <div class="content-inner">
+      <div class="form-wrapper">
+<%= simple_form_for @utext do | f | %>
+  <div class="form-group">
+  <%= f.input :display_text, as: :summernote %>
+  </div>
+  <%= f.button :submit %>
+  <% end %>
+</div>
+</div>
+ <script type="text/javascript">
+   $(document).ready(function() {
+     $('#summernote').summernote();
+   });
+ </script>

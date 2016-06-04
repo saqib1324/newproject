@@ -1,0 +1,96 @@
+ <!--Pending Undertakings with both status  false -->
+ <div class = "animated fadeIn" ng-app="Studentsr" ng-controller="StudentCtrl">
+  <div id="dashboard-con">
+    <div>
+      <ng-view></ng-view>
+      <div class="dashboard-left-cell">
+        <div class="admin-content-con">
+          <header class="clearfix">
+            <strong><h5 class="pull-left page_title">All Students with no response</h5></strong>
+            <div class="col-sm-2 pull-right lil">
+            <input type="text" class="form-control-special" ng-model="searchString" placeholder="Search Students"/>
+            </div>
+          </header>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Tracking ID </th>
+                <th>Phone Number </th>
+                <th>Secondary Number </th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="student in students | searchFor:searchString">
+                  
+                  <td>{{student.name}}</td>
+                  <td>{{student.tracking_id}}</td>
+                  <td>{{student.phone_number}}</td>
+                  <td>{{student.secondary_phone_number}}</td>
+                  <td>
+                    <%= link_to 'Accept',URI::unescape( undertakings_path(:admin => "accept_file", :id => '{{student.tracking_id}}')), :class => 'btn btn-xs btn-primary', :role => "button" %>
+                  </td>
+                </tr>
+               
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    var stdMod = angular.module('Studentsr', []); 
+  stdMod.controller('StudentCtrl', function ($rootScope, $http) {
+    $rootScope.students = []
+    <% if @students!=nil%>
+      <% @students.each do |student| %>
+        $rootScope.students.push({
+          id: '<%= student.id %>',
+          name:'<%= student.name %>',
+          tracking_id: '<%= student.tracking_id %>',
+          phone_number: '<%= student.phone_number %>',
+          secondary_phone_number: '<%= student.secondary_phone_number%>',
+          matric_percentage: '<%= student.matric_percentage %>',
+          monthly_income: '<%= student.monthly_income %>',
+          section: '<%= student.section %>',
+          SEX: '<%= student.SEX%>',
+          city: '<%= student.city%>'
+        })
+    <% end %>
+  <% end %>
+  });
+  stdMod.filter('searchFor', function(){
+  return function(arr, searchString){
+    if(!searchString){
+      return arr;
+    }
+    var result = [];
+    searchString = searchString.toLowerCase();
+    angular.forEach(arr, function(item){
+      if(item.name.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.tracking_id.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if (item.phone_number.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if (item.secondary_phone_number.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.matric_percentage.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.monthly_income.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.section.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.SEX.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.city.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }
+    });
+    return result;
+  };
+  });
+</script>

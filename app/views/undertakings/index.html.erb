@@ -1,0 +1,32 @@
+ <div class = "animated fadeIn">
+  <div id="dashboard-con">
+    <div>
+      <div class="dashboard-left-cell">
+        <div class="admin-content-con">
+          <header class="clearfix">
+            <strong><h5 class="pull-left page_title">All Students with Accepted Fee Vouchers</h5></strong>
+          </header>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name </th>
+                <th>Tracking ID </th>
+                <th>Acceptance Stream</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @undertakings.each do |undertaking| %>
+                <tr>
+                  <td><%= Student.where(:tracking_id => undertaking.tracking_id).take.name %></td>
+                  <td><%= undertaking.tracking_id %></td>
+                  <td><%= undertaking.via %></td>
+                  
+                </tr>
+              <% end %>                
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>

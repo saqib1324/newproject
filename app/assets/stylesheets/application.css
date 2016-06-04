@@ -12,11 +12,27 @@
  *= require rails_bootstrap_forms
  *= require_tree .
  *= require_self
+  *= require font-awesome
  *= require animate
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "summernote";
+@import "font-awesome";
 
+.form-control-special{
+    display: block;
+    width: 100%;
+    height: 24px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 #notice_wrapper{
     position: absolute;
     top: 10px;

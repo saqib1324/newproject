@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-
+//= require summernote
 //= require_tree
 //= require angular
 
@@ -31,3 +31,6 @@ $(document).ready(function() {
   });
  }, 4000);
 });
+
+
+
