@@ -21,14 +21,14 @@ class StudentsController < ApplicationController
     
   end
   def show
-    # @student=Student.find(params[:id])
-    # respond_to do |format|
-    #     format.html
-    #     format.pdf do
-    #         pdf = StudentVoucherPdf.new(@student)
-    #         send_data pdf.render, filename: "#{@student.name}'s voucher'.pdf", type: "application/pdf", disposition: "inline"
-    #     end
-    # end
+    @student=Student.find(params[:id])
+    respond_to do |format|
+        format.html
+        format.pdf do
+            pdf = StudentVoucherPdf.new(@student)
+            send_data pdf.render, filename: "#{@student.name}'s voucher'.pdf", type: "application/pdf", disposition: "inline"
+        end
+    end
   end
   def new
     @student = Student.new

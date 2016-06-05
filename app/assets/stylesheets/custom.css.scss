@@ -1,6 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+#utext {
+    background-color: #bcf6e8;
+    width: full;
+    padding: 25px;
+    margin: 25px;
+	color: black;
+}
+#check-box{
+    margin: 25px;	
+}
 html, body {
 	font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background-color: #f3f3f4;

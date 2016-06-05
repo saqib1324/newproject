@@ -35,7 +35,7 @@ class UndertakingsController < ApplicationController
             else
                 flash[:notice] = "File not found"
             end
-            redirect_to redirect_to url_for(:controller => "undertakings",:action => "manage")        
+            redirect_to url_for(:controller => "undertakings",:action => "manage")        
         else
             @undertakings = Undertaking.where(:status => true,:admin_status => true).all
         end
@@ -55,7 +55,7 @@ class UndertakingsController < ApplicationController
         @undertaking = Undertaking.new(set_params) do |t|
             @id =Student.find_by_username(current_user.email).tracking_id
             t.tracking_id = @id
-            if params[:undertaking][:data]
+            begin
                 t.via = "Electronic"
                 t.data      = params[:undertaking][:data].read
                 t.file_name  = params[:undertaking][:data].original_filename
@@ -63,7 +63,7 @@ class UndertakingsController < ApplicationController
                 t.session = CoachingSession.where(:status => true).take.name
                 t.status = true
                 @save_it = 1
-            else
+            rescue
                 @save_it = 0
                 flash[:notice] = 'Pleae Choose a File first'
                 redirect_to "/undertakings/upload"
@@ -71,7 +71,7 @@ class UndertakingsController < ApplicationController
             end
         end
         # normal save
-        if @save_it
+        if @save_it ==1
             if @undertaking.save
               flash[:notice] = 'Fee Voucher successfully Uploaded'
               redirect_to "/students_home/index"
@@ -105,8 +105,8 @@ class UndertakingsController < ApplicationController
     end
     def manage
         @active_session = CoachingSession.where(:status => true).take.name
-        @pids =  Undertaking.find_by_sql "select tracking_id from undertakings where status = true AND admin_status = NULL AND session = (select name from coaching_sessions where status = true )"
-        @rids =  Undertaking.find_by_sql "select tracking_id from undertakings where status = true AND admin_status= false AND session = (select name from coaching_sessions where status = true )"
+        @pids =  Undertaking.find_by_sql "select tracking_id from undertakings where status = true AND admin_status IS NULL AND session = (select name from coaching_sessions where status = true )"
+        @rids =  Undertaking.find_by_sql "select tracking_id from undertakings where status = true AND admin_status = false AND session = (select name from coaching_sessions where status = true )"
         @pstudents =     Student.where(tracking_id: @pids,:session => @active_session).all
         # @pundertakings = Undertaking.where(:status => true,:admin_status => false,:session => @active_session).all
         @rstudents =     Student.where(tracking_id: @rids,:session => @active_session).all       

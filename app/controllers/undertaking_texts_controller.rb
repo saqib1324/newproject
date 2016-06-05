@@ -26,7 +26,7 @@ class UndertakingTextsController < ApplicationController
         @utext=UndertakingText.find(params[:id])
         respond_to do |format|
             if @utext.update(text_params)
-              format.html { redirect_to users_path(:admin => "undertaking_text"), notice: 'Text Updated Successfully' }
+              format.html { redirect_to undertaking_texts_path, notice: 'Text Updated Successfully' }
               format.json { render :show, status: :ok, location: @utext }
             else
               format.html { render :edit }

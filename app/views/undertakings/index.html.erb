@@ -1,10 +1,11 @@
- <div class = "animated fadeIn">
+<div class = "animated fadeIn">
   <div id="dashboard-con">
     <div>
       <div class="dashboard-left-cell">
         <div class="admin-content-con">
           <header class="clearfix">
             <strong><h5 class="pull-left page_title">All Students with Accepted Fee Vouchers</h5></strong>
+            
           </header>
           <table class="table table-striped">
             <thead>
@@ -12,6 +13,7 @@
                 <th>Name </th>
                 <th>Tracking ID </th>
                 <th>Acceptance Stream</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -21,7 +23,10 @@
                   <td><%= undertaking.tracking_id %></td>
                   <td><%= undertaking.via %></td>
                   
-                </tr>
+                  <td>
+                    <%= link_to 'View',url_for(:controller => "undertakings",:action => "displayfile",:id => undertaking.tracking_id) ,target: "_blank", :class => 'btn btn-xs btn-primary', :role => "button" %>
+                  </td>
+              </tr>
               <% end %>                
             </tbody>
           </table>
@@ -29,4 +34,5 @@
       </div>
     </div>
   </div>
-  </div>
+
+</div>

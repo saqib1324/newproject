@@ -6,13 +6,15 @@
             <strong><h3 class="pull-left page_title"><%= @student.name %>'s Summer Coaching Session Undertaking</h3></strong>
             <div class = "divider pull-right">
           </header>
-          <!--<div id = "utext"><= UndertakingText.find(1).display_text %></div><hr/>-->
+          <div id = "utext"><%=raw UndertakingText.find(1).display_text %></div>
+           <div id = "check-box">
           <input type="checkbox" id="check" unchecked="unchecked"/>
-          <label for="check" id="checkLabel">Show Details</label><p/>
-    <!--<p hidden id="hideMe"><= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank" %><p>-->
-      <!--<p hidden id="hideMe"><= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank", :class => "btn btn-primary", :role => "button" %><p>-->
+         <label for="check" id="checkLabel">I agree to all Terms and Conditions</label><p/>
+          
+    <!--<p hidden id="hideMe"><= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank" %><p></div>-->
+      <p hidden id="hideMe"><%= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank", :class => "btn btn-primary", :role => "button" %><p>
                  
-                     <script language="javascript" type="text/javascript">
+<script language="javascript" type="text/javascript">
 var hideTest = {
   hidePara: function() {
     if ( $(this).is(':checked') ) {
@@ -26,7 +28,7 @@ var hideTest = {
   }
 };
 $(hideTest.setup);
-    </script>
+</script>
                  
                  <div class="checkbox">
                     <label>
