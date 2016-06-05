@@ -1,20 +1,22 @@
+  <div class="admin-content-con">
   <% if @undertaking == "already_uploaded" %> 
-    Instructions: Yaar aik bar hi sahi dfa daal deta
-    <p><%= link_to "Upload File again", :controller => "undertakings", :action => "destroy" %></p>
+    File is already uploaded.
+    <br>
+    <%= link_to "Upload File again", url_for(:controller => "undertakings", :action => "destroy", id: Student.where(:username => current_user.email).take.tracking_id), method: :delete,  :class => 'btn btn-xs btn-primary', :role => "button" %>
   <% else %>
-    <%= form_for(@undertaking, :html => {:multipart => true}) do |f| %>
-      <div class="field">
-        <%= f.label :name %>
-        <%= f.text_field :file_name %>
-      </div>
-      <div class="field">
-        <%= f.label :data %>
-        <%= f.file_field :data %>
-      </div>
-      <% tracking_id = @id %>
-      <div class="actions">
-        <%= f.submit "Upload" %>
-      </div>
-    <% end %>
+    
+      <%= form_for(@undertaking, :html => {:multipart => true}) do |f| %>
+        <br/>
+        <div class="field">
+          <%= f.file_field :data %>
+        </div>
+        <br/>
+        <% tracking_id = @id %>
+        <div class="actions">
+          <%= f.submit "Upload" %>
+        </div>
+      <% end %>
+    
+    
   <% end %>
-  <br/><br/>
+  </div>

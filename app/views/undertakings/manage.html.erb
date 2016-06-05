@@ -1,89 +1,71 @@
- <!--Acceptance Management with status true and -->
-  <div id="dashboard-con">
-     <div class="row">
-      <div class="col-md-12">
-        <div class="admin-content-con clearfix">
-          <header>
-            <strong><h5>Accept Mail Undertakings</h5></strong>
-          </header>
-          <div class="content-inner">
-            <div class="row search-row">
-          	  <div class="col-md-12">
-            		<!--<div class="input-group">-->
-            		<!--	<input type="text" class="form-control search-field" id="search" placeholder="Search">-->
-            		<!--	<span class="input-group-btn">-->
-            		<!--		<button type="button" class="btn btn-primary go">Go!</button>-->
-            		<!--		</span>-->
-            		<!--</div>-->
-            		<%= bootstrap_form_tag url: '/users?admin=manage_undertakings' do |f| %>
-              		<%= text_field_tag :search, params[:search] %>
-                  <%= f.submit %>
-                <% end %>
-            	</div>
-            </div>
-        </div>
-        </div>
-      </div>
+ <!--Acceptance Management with status true and admin_status false -->
+<div id="dashboard-con">
+  <div class="row">
+    <div class="admin-content-con">
+      <header class="clearfix">
+        <h5 class="pull-left"><strong>Rejected Fee vouchers sent via APP</h5></strong>
+      </header>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Tracking ID </th>
+            <th>Phone Number </th>
+            <th>Secondary Number </th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @rstudents.each do |student| %>
+            <tr>
+              <td><%= student.name %></td>
+              <td><%= student.tracking_id %></td>
+              <td><%= student.phone_number %></td>
+              <td><%= student.secondary_phone_number %></td>
+              <td>
+                <%= link_to 'View',url_for(:controller => "undertakings",:action => "displayfile",:id => student.tracking_id) ,target: "_blank", :class => 'btn btn-xs btn-warning', :role => "button" %>
+                <%= link_to 'Accept', undertakings_path(:admin => "accept_file",:id => student.tracking_id), :class => 'btn btn-xs btn-primary', :role => "button" %>
+                <%= link_to 'Reject', undertakings_path(:admin => "reject_file",:id => student.tracking_id), :class => 'btn btn-xs btn-danger', :role => "button" %>
+              </td>
+            </tr>
+          <% end %>                
+        </tbody>
+      </table>
     </div>
   </div>
+
 
   <div class="row">
-    <div class="col-md-6 dashboard-left-cell">
-      <div class="admin-content-con">
-        <header class="clearfix">
-          <h5 class="pull-left">Pending Fee vouchers</h5>
-        </header>
-        <table class="table table-striped">
-          <thead>
+    <div class="admin-content-con">
+      <header class="clearfix">
+        <h5 class="pull-left"><strong>Pending Fee vouchers sent via APP</strong></h5>
+      </header>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Tracking ID </th>
+            <th>Phone Number </th>
+            <th>Secondary Number </th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @pstudents.each do |student| %>
             <tr>
-              <th>Tracking ID </th>
-              <th>Status</th>
-              <th>Actions</th>
+              <td><%= student.name %></td>
+              <td><%= student.tracking_id %></td>
+              <td><%= student.phone_number %></td>
+              <td><%= student.secondary_phone_number %></td>
+              <td>
+                <%= link_to 'View',url_for(:controller => "undertakings",:action => "displayfile",:id => student.tracking_id) ,target: "_blank", :class => 'btn btn-xs btn-warning', :role => "button" %>
+                <%= link_to 'Accept', undertakings_path(:admin => "accept_file",:id => student.tracking_id), :class => 'btn btn-xs btn-primary', :role => "button" %>
+                <%= link_to 'Reject', undertakings_path(:admin => "accept_file",:id => student.tracking_id), :class => 'btn btn-xs btn-danger', :role => "button" %>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <% @studentsp.each do |undertaking| %>
-              <tr>
-                <td><%= undertaking.tracking_id %></td>
-                <td>Pending</td>
-                <td>
-                  <%= link_to 'View', users_path(:admin => "view_file", :id => undertaking.tracking_id),target: "_blank", :class => 'btn btn-xs btn-warning', :role => "button" %>
-                  <%= link_to 'Accept', users_path(:admin => "accept_file", :id => undertaking.tracking_id), :class => 'btn btn-xs btn-primary', :role => "button" %>
-                  <%= link_to 'Reject', users_path(:admin => "reject_file", :id => undertaking.tracking_id), :class => 'btn btn-xs btn-danger', :role => "button" %>
-                </td>
-              </tr>
-            <% end %>                
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="col-md-6 dashboard-right-cell">
-      <div class="admin-content-con">
-        <header class="clearfix">
-          <h5 class="pull-left">Accepted Fee Vouchers</h5>
-        </header>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Tracking ID </th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @students.each do |undertaking| %>
-              <tr>
-                <td><%= undertaking.tracking_id %></td>
-                <td>Accepted</td>
-                <td>
-                  <%= link_to 'View', users_path(:admin => "view_file", :id => undertaking.tracking_id),target: "_blank", :class => 'btn btn-xs btn-primary', :role => "button" %>
-                  <%= link_to 'Mark Pending', users_path(:admin => "reject_file", :id => undertaking.tracking_id), :class => 'btn btn-xs btn-warning', :role => "button" %>
-                </td>
-              </tr>
-            <% end %>                
-          </tbody>
-        </table>
-      </div>
+          <% end %>                
+        </tbody>
+      </table>
     </div>
   </div>
+</div>

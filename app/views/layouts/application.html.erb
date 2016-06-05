@@ -12,119 +12,200 @@
       <%= csrf_meta_tags %>
       <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
     </head>
-  <!--< if current_user.role == "admin" %>-->
-
+    <body>
     <% if user_signed_in? %>
-        <body>
-      <div class="container-fluid display-table">
-      <div class="row display-table-row">
-          <!-- side menu -->
-      <div class="col-md-2 col-sm-1  hidden-xs display-table-cell valign-top" id="side-menu">
-      <h1><span>Data<span><b>Burj</b></span></span></h1>
-      <ul>
-       <li class="link settings-btn">
-                <a href="/home">
-                  <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-                  <span class="hidden-sm hidden-xs">Dashboard</span>
-                </a>
-                
-              </li>
-              
-              <li class="link">
-                <a href="/coaching_sessions">
-                  <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                  <span class="hidden-sm hidden-xs">Session Management</span>
-                </a>
-              </li>
-              
-              <li class="link">
-                <a href="#collapse-post" data-toggle="collapse" aria-controls="collapse-post">
-                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                  <span class="hidden-sm hidden-xs">Students</span>
-                </a>
-                <ul class="collapse collapseable" id="collapse-post">
-                  <li>
-                    <%= link_to 'View Students', students_path %>
-                  </li>
-                  <li>
-                    <%= link_to 'Add Students', new_student_path %>
-                  </li>
-                </ul>
-              </li>
-             <li class="link">
-                <a href="#collapse-undertaking" data-toggle="collapse" aria-controls="collapse-undertaking">
-                  <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
-                  <span class="hidden-sm hidden-xs">Undertakings</span>
-                </a>
-                <ul class="collapse collapseable" id="collapse-undertaking">
-                  <!--<li>-->
-                  <!--  = link_to 'Edit Fee Voucer Details', students_path %>-->
-                  <!--</li>-->
-                  <li>
-                    <%= link_to 'Add Undertaking text', undertaking_texts_path %>
-                  </li>
-                  <li>
-                    <%= link_to 'Pending Undertakings', :controller => :undertakings, :action => :pending %>
-                  </li>
-                  <li>
-                    <%= link_to 'Acceptance Management',  :controller => :undertakings, :action => :manage %>
-                  </li>
-                  <li>
-                    <%= link_to 'Accepted Undertakings',  undertakings_path %>
-                  </li>
-  
-          </ul>  
-            
-            
-            
-          </div>
-          <div class="col-md-10 col-sm-11 display-table-cell valign-top">
-            <div class="row">
-              <header id="nav-header" class="clearfix">
-                <div class="col-md-5">
-                  <nav class="navbar-default pull-left">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </button>
-                  </nav>
-                </div>
-                <div class="col-md-7">
-                  <ul class="pull-right">
-                    <li id="welcome" class="hidden-xs">DataBurj Administrative Panel</li>
-                    <li class="fixed-width">
-                      <a href="#">
-                      </a>
+      <% if current_user.role == "admin" %>
+        <div class="container-fluid display-table">
+          <div class="row display-table-row">
+            <!-- side menu -->
+            <div class="col-md-2 col-sm-1  hidden-xs display-table-cell valign-top" id="side-menu">
+              <h1><span>Data<span><b>Burj</b></span></span></h1>
+              <ul>
+                <li class="link settings-btn">
+                  <a href="/home">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">Dashboard</span>
+                  </a>
+                </li>
+                <li class="link">
+                  <a href="/coaching_sessions">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">Session Management</span>
+                  </a>
+                </li>
+                <li class="link">
+                  <a href="#collapse-post" data-toggle="collapse" aria-controls="collapse-post">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">Students</span>
+                  </a>
+                  <ul class="collapse collapseable" id="collapse-post">
+                    <li>
+                      <%= link_to 'View Students', students_path %>
                     </li>
                     <li>
-                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                        <a class="logout"><%= link_to "Log Out", destroy_user_session_path, :method => 'delete' %></a>
-                      </a>
+                      <%= link_to 'Add Students', new_student_path %>
                     </li>
                   </ul>
-                </div>
-              </header>
+                </li>
+                <li class="link">
+                  <a href="#collapse-undertaking" data-toggle="collapse" aria-controls="collapse-undertaking">
+                    <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">Undertakings</span>
+                  </a>
+                  <ul class="collapse collapseable" id="collapse-undertaking">
+                    <!--<li>-->
+                    <!--  = link_to 'Edit Fee Voucer Details', students_path %>-->
+                    <!--</li>-->
+                    <li>
+                      <%= link_to 'Add Undertaking text', undertaking_texts_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Pending Undertakings', :controller => :undertakings, :action => :pending %>
+                    </li>
+                    <li>
+                      <%= link_to 'Acceptance Management',  :controller => :undertakings, :action => :manage %>
+                    </li>
+                    <li>
+                      <%= link_to 'Accepted Undertakings',  undertakings_path %>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </div>
-  
-  <%= yield %>
-           <div class="row">
-              <footer id="admin-footer" class="clearfix">
-                <div class="pull-left"><b>Copyright </b>&copy; 2016. Lahore University of Management Sciences (LUMS), Pakistan - All Rights Reserved</div>
-                <div class="pull-right"><a href = "https://www.facebook.com/groups/1717841335126709/" target="_blank">DataBurj Developers</a></div>
-              </footer>
+            <div class="col-md-10 col-sm-11 display-table-cell valign-top">
+              <div class="row">
+                <header id="nav-header" class="clearfix">
+                  <div class="col-md-5">
+                    <nav class="navbar-default pull-left">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                    </nav>
+                  </div>
+                  <div class="col-md-7">
+                    <ul class="pull-right">
+                      <li id="welcome" class="hidden-xs">DataBurj Administrative Panel</li>
+                      <li class="fixed-width">
+                        <a href="#">
+                        </a>
+                      </li>
+                      <li>
+                          <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                          <a class="logout"><%= link_to "Log Out", destroy_user_session_path, :method => 'delete' %></a>
+                        
+                      </li>
+                    </ul>
+                  </div>
+                </header>
+              </div>
+        
+      <% elsif current_user.role == "student" %>
+        <div class="container-fluid display-table">
+          <div class="row display-table-row">
+            <!-- side menu -->
+            <div class="col-md-2 col-sm-1  hidden-xs display-table-cell valign-top" id="side-menu">
+              <h1><span>Data<span><b>Burj</b></span></span></h1>
+              <ul>
+                <li class="link settings-btn">
+                  <a href="/students_home/index ">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">Dashboard</span>
+                  </a>
+                </li>
+                <li class="link">
+                  <a href="/students_home/profile">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">My Profile</span>
+                  </a>
+                </li>
+                 <li class="link">
+                  <a href="#collapse-post" data-toggle="collapse" aria-controls="collapse-post">
+                    <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">Undertaking</span>
+                  </a>
+                  <ul class="collapse collapseable" id="collapse-post">
+                    <li>
+                      <a href="/students_home/index">View Undertaking</a>
+                    </li>
+    
+                    <li>
+                      <a href="/undertakings/upload">Upload Fee Voucher</a>
+                    </li>
+                    <li>
+                      <%= link_to "View Uploaded Fee Voucher", url_for(:controller => "undertakings", :action => "displayfile", id: Student.where(:username => current_user.email).take.tracking_id),target: "_blank" %>
+                        <!--Render a new page for viewing uploaded fee voucher-->
+                    </li>
+                  </ul>
+                </li>
+                  <li class="link">
+                  <a href="#">
+                    <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">Attendance</span>
+                  </a>
+                </li>
+                <li class="link">
+                  <a href="#">
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">Learning Management System</span>
+                  </a>
+                </li>
+                <li class="link active">
+                  <a href="#">
+                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">Settings</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-        </div>
+            <!-- main content area -->
+            <div class="col-md-10 col-sm-11 display-table-cell valign-top">
+              <div class="row">
+                <header id="nav-header" class="clearfix">
+                  <div class="col-md-5">
+                    <nav class="navbar-default pull-left">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                    </nav>
+                  </div>
+                  <div class="col-md-7">
+                    <ul class="pull-right">
+                      <li id="welcome" class="hidden-xs">DataBurj Student area</li>
+                      <li class="fixed-width">
+                        <a href="#">
+                        </a>
+                      </li>
+                      <li>
+                          <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                          <a class="logout"><%= link_to "Log Out", destroy_user_session_path, :method => 'delete' %></a>
+                      </li>
+                    </ul>
+                  </div>
+                </header>
+              </div>
+      <% end %>
+      
+      <%= yield %>
+     <div class="row">
+        <footer id="admin-footer" class="clearfix">
+          <div class="pull-left"><b>Copyright </b>&copy; 2016. Lahore University of Management Sciences (LUMS), Pakistan - All Rights Reserved</div>
+          <div class="pull-right"><a href = "https://www.facebook.com/groups/1717841335126709/" target="_blank">DataBurj Developers</a></div>
+        </footer>
+      </div>
         </div>
       </div>
+    </div>
   </body>
   <% else %>
   <%= yield %>
 
   </html>
 
-
-<!--< else if current_user.role == "student" %>-->
 
 <% end %>

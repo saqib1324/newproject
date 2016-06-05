@@ -9,14 +9,21 @@ class UndertakingsController < ApplicationController
                 flash[:notice] = "No file uploaded yet."
             end    
         elsif params[:admin] == "accept_file"
-            Undertaking.create_mail(params[:id])
             @undertaking = Undertaking.find_by(:tracking_id => params[:id])
-            if (@undertaking)
+            if @undertaking
+                @undertaking.update(:admin_status => true)
                 flash[:notice] = "Fee Voucher accepted"
-                redirect_to url_for(:controller => "undertakings",:action => "pending")
+                redirect_to url_for(:controller => "undertakings",:action => "manage")
             else
-                flash[:notice] = "Oops! Something went wrong.Please try again"
-                redirect_to url_for(:controller => "undertakings",:action => "pending")
+                Undertaking.create_mail(params[:id])
+                @undertaking = Undertaking.find_by(:tracking_id => params[:id])
+                if (@undertaking)
+                    flash[:notice] = "Fee Voucher accepted"
+                    redirect_to url_for(:controller => "undertakings",:action => "pending")
+                else
+                    flash[:notice] = "Oops! Something went wrong.Please try again"
+                    redirect_to url_for(:controller => "undertakings",:action => "pending")
+                end
             end
         elsif params[:admin] == "reject_file"
             @file = Undertaking.find_by(:tracking_id => params[:id])
@@ -44,6 +51,7 @@ class UndertakingsController < ApplicationController
     
     def create
     # build a photo and pass it into a block to set other attributes
+        @save_it = 0
         @undertaking = Undertaking.new(set_params) do |t|
             @id =Student.find_by_username(current_user.email).tracking_id
             t.tracking_id = @id
@@ -53,19 +61,27 @@ class UndertakingsController < ApplicationController
                 t.file_name  = params[:undertaking][:data].original_filename
                 t.mime_type = params[:undertaking][:data].content_type
                 t.session = CoachingSession.where(:status => true).take.name
-                t.admin_status = false
                 t.status = true
+                @save_it = 1
+            else
+                @save_it = 0
+                flash[:notice] = 'Pleae Choose a File first'
+                redirect_to "/undertakings/upload"
+                
+            end
+        end
+        # normal save
+        if @save_it
+            if @undertaking.save
+              flash[:notice] = 'Fee Voucher successfully Uploaded'
+              redirect_to "/students_home/index"
+              
+            else
+                flash[:notice] = 'Oops! Something went wrong. Please Try Again'
+                redirect_to "/undertakings/upload"
             end
         end
         
-        # normal save
-        if @undertaking.save
-          flash[:notice] = 'Photo was successfully Uploaded.'
-          redirect_to "/students_home/index"
-          
-          else
-          render :action => "new"
-        end
     end
     def update
         @undertaking = Undertaking.find(params[:id])
@@ -75,12 +91,12 @@ class UndertakingsController < ApplicationController
         end
     end
     def destroy
-        @undertaking = Undertaking.where(:tracking_id => session[:id]).take
+        @undertaking = Undertaking.where(:tracking_id => params[:id]).take
         if @undertaking.present?
           @undertaking.destroy
           flash[:notice] = "file destroyed successfully"
         end
-        redirect_to(:controller => "users", :action => "student_index", :std => "upload")
+        redirect_to(:controller => "undertakings", :action => "upload")
     end
     def pending
         @active_session =      CoachingSession.where(:status => true).take.name
@@ -89,8 +105,11 @@ class UndertakingsController < ApplicationController
     end
     def manage
         @active_session = CoachingSession.where(:status => true).take.name
-        @studentsp = Undertaking.where(:status => true,:admin_status => false,:session => @active_session).all
-        @students = Undertaking.where(:status => true,:admin_status => true,:session => @active_session).all        
+        @pids =  Undertaking.find_by_sql "select tracking_id from undertakings where status = true AND admin_status = NULL AND session = (select name from coaching_sessions where status = true )"
+        @rids =  Undertaking.find_by_sql "select tracking_id from undertakings where status = true AND admin_status= false AND session = (select name from coaching_sessions where status = true )"
+        @pstudents =     Student.where(tracking_id: @pids,:session => @active_session).all
+        # @pundertakings = Undertaking.where(:status => true,:admin_status => false,:session => @active_session).all
+        @rstudents =     Student.where(tracking_id: @rids,:session => @active_session).all       
     end
     def upload
         @id =Student.find_by_username(current_user.email).tracking_id
@@ -102,16 +121,17 @@ class UndertakingsController < ApplicationController
         end 
     end
     def displayfile
-        @id =Student.find_by_username(current_user.email).tracking_id
-        @file = Undertaking.find_by(:tracking_id => @id)
+        # @id =Student.find_by_username(current_user.email).tracking_id
+        @file = Undertaking.find_by(:tracking_id => params[:id])
         if (@file)
             send_data( @file.data , :type => @file.mime_type, :filename => "#{@file.file_name}", :disposition => "inline")
         else
             flash[:notice] = "No file uploaded yet."
+            redirect_to :controller => "students_home",:action => "index" 
         end
     end
     private
     def set_params
-        params.require(:undertaking).permit( :tracking_id, :status,:session, :admin_status, :file_name, :data, :mime_type)
+        params.permit( :tracking_id, :status,:session, :admin_status, :file_name, :data, :mime_type)
     end
 end

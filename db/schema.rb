@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20160604001904) do
 
   create_table "undertakings", primary_key: "tracking_id", force: :cascade do |t|
     t.boolean  "status",                        default: false
-    t.boolean  "admin_status",                  default: false
+    t.boolean  "admin_status"
     t.string   "file_name",    limit: 255,      default: "null"
     t.binary   "data",         limit: 16777215
     t.string   "mime_type",    limit: 255,      default: "null"
