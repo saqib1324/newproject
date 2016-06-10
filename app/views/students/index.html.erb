@@ -6,9 +6,12 @@
       <div class="dashboard-left-cell">
         <div class="admin-content-con">
           <header class="clearfix">
-            <strong><h5 class="pull-left page_title">All Students</h5></strong>
+            <strong><h5 class="pull-left page_title">All Students : <%= @count %></h5></strong>
             <div class = "divider pull-right">
               <%= link_to "Add new student", new_student_path, :class => "btn btn-xs btn-primary pull-right", :role => "button" %> 
+            </div>
+            <div class = "divider pull-right">
+              <%= link_to "Delete All Students", url_for(:controller => :students, :action => :delete_all), :class => "btn btn-xs btn-primary pull-right", :role => "button", :data => {confirm: 'Are you sure you want to delete all students?'}  %> 
             </div>
             <div class = "divider pull-right">
               <%= form_tag :controller => :students, :action => :export do %>
@@ -28,12 +31,7 @@
               <tr>
                 <th><%= sortable "Name" %><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></th>
                 <th><%= sortable "tracking_id" %><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></th>
-                <th><%= sortable "matric_percentage" %><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></th>
                 <th><%= sortable "monthly_income" %><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></th>
-                <th><%= sortable "Section" %><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></th>
-                
-              
-                <th>Gender</th>
                 <th>City</th>
                 <th>Actions</th>
               </tr>
@@ -42,15 +40,12 @@
               <tr ng-repeat="student in students | searchFor:searchString">
                   <td>{{student.name}}</td>
                   <td>{{student.tracking_id}}</td>
-                  <td>{{student.matric_percentage}}</td>
                   <td>{{student.monthly_income}}</td>
-                  <td>{{student.section}}</td>
-                  <td>{{student.SEX}}</td>
                   <td>{{student.city}}</td>
                   <td>
-                    <%= link_to 'Edit', URI::unescape(edit_student_path(:id => '{{student.id}}')), :class => 'btn btn-xs btn-warning', :role => "button" %>
-                    <%= link_to 'View', URI::unescape(students_path(:id => '{{student.id}}',:admin => "view_student")), :class => 'btn btn-xs btn-primary', :role => "button" %>
-                    <%= link_to 'Delete', URI::unescape('students/{{student.id}}'), method: :delete, :class => 'btn btn-xs btn-danger', :role => "button", :data => {confirm: 'Are you sure you want to delete this?'} %>
+                    <%= link_to 'Edit', URI::unescape(edit_student_path(:id => '{{student.tracking_id}}')), :class => 'btn btn-xs btn-warning', :role => "button" %>
+                    <%= link_to 'View', URI::unescape(students_path(:id => '{{student.tracking_id}}',:admin => "view_student")), :class => 'btn btn-xs btn-primary', :role => "button" %>
+                    <%= link_to 'Delete', URI::unescape('students/{{student.tracking_id}}'), method: :delete, :class => 'btn btn-xs btn-danger', :role => "button", :data => {confirm: 'Are you sure you want to delete this?'} %>
                   </td>
               </tr>
             </tbody>
@@ -69,14 +64,14 @@
     <% if @students!=nil%>
       <% @students.each do |student| %>
         $rootScope.students.push({
-          id: '<%= student.id %>',
-          name:'<%= student.name %>',
+          name:'<%= student.name.titleize() %>',
           tracking_id: '<%= student.tracking_id %>',
-          matric_percentage: '<%= student.matric_percentage %>',
           monthly_income: '<%= student.monthly_income %>',
-          section: '<%= student.section %>',
-          SEX: '<%= student.SEX%>',
-          city: '<%= student.city%>'
+          <% if student.city %>
+           city: '<%= student.city.titleize() %>'
+          <% else %>
+           city: '<%= student.city %>'
+          <% end %>
         })
     <% end %>
   <% end %>
@@ -93,13 +88,7 @@
         result.push(item);
       }else if(item.tracking_id.toLowerCase().indexOf(searchString) !== -1){
         result.push(item);
-      }else if(item.matric_percentage.toLowerCase().indexOf(searchString) !== -1){
-        result.push(item);
       }else if(item.monthly_income.toLowerCase().indexOf(searchString) !== -1){
-        result.push(item);
-      }else if(item.section.toLowerCase().indexOf(searchString) !== -1){
-        result.push(item);
-      }else if(item.SEX.toLowerCase().indexOf(searchString) !== -1){
         result.push(item);
       }else if(item.city.toLowerCase().indexOf(searchString) !== -1){
         result.push(item);
@@ -122,21 +111,30 @@
                 <div class = "divider pull-right">
                  <%= link_to "All Students", students_path, :class => "btn btn-xs btn-primary pull-right", :role => "button" %>
               </header>
-                <strong>Name:</strong>&nbsp;&nbsp;&nbsp;<%= @student.name %><hr/>
+                <strong>Stream:</strong>&nbsp;&nbsp;&nbsp;<%= @student.stream %><hr/>
                 <strong>Tracking ID:</strong>&nbsp;&nbsp;&nbsp;<%= @student.tracking_id %><hr/>
-                <strong>Section:</strong>&nbsp;&nbsp;&nbsp;<%= @student.section %><hr/>
+                <strong>Name:</strong>&nbsp;&nbsp;&nbsp;<%= @student.name %><hr/>
                 <strong>Father's Name:</strong>&nbsp;&nbsp;&nbsp;<%= @student.father_name %><hr/>
+                <strong>Matric/O-Level Stream:</strong>&nbsp;&nbsp;&nbsp;<%= @student.m_o_level_stream %><hr/>
+                <strong>Graduation year:</strong>&nbsp;&nbsp;&nbsp;<%= @student.graduation_year %><hr/>
                 <strong>Date of Birth:</strong>&nbsp;&nbsp;&nbsp;<%= @student.DOB %><hr/>
+                <strong>Gender:</strong>&nbsp;&nbsp;&nbsp;<%= @student.gender %><hr/>
                 <strong>Matric Percentage:</strong>&nbsp;&nbsp;&nbsp;<%= @student.matric_percentage %><hr/>
-                <strong>Monthly Income:</strong>&nbsp;&nbsp;&nbsp;<%= @student.monthly_income %><hr/>
-                <strong>Gender:</strong>&nbsp;&nbsp;&nbsp;<%= @student.SEX %><hr/>
+                <strong>O-Level Grades:</strong>&nbsp;&nbsp;&nbsp;<%= @student.o_level_grades %><hr/>
+                <strong>Address 1:</strong>&nbsp;&nbsp;&nbsp;<%= @student.address1 %><hr/>
+                <strong>Address 2:</strong>&nbsp;&nbsp;&nbsp;<%= @student.address2 %><hr/>
+                <strong>Address 3:</strong>&nbsp;&nbsp;&nbsp;<%= @student.address3 %><hr/>
                 <strong>City:</strong>&nbsp;&nbsp;&nbsp;<%= @student.city %><hr/>
-                <strong>Email Address:</strong>&nbsp;&nbsp;&nbsp;<%= @student.email %><hr/>
+                <strong>District:</strong>&nbsp;&nbsp;&nbsp;<%= @student.district %><hr/>
+                <strong>Province:</strong>&nbsp;&nbsp;&nbsp;<%= @student.province %><hr/>
+                <strong>Mobile number:</strong>&nbsp;&nbsp;&nbsp;<%= @student.mobile_number %><hr/>
                 <strong>Phone number:</strong>&nbsp;&nbsp;&nbsp;<%= @student.phone_number %><hr/>
-                <strong>Secondary Phone number:</strong>&nbsp;&nbsp;&nbsp;<%= @student.secondary_phone_number %><hr/>
-                <strong>Mailing Address:</strong>&nbsp;&nbsp;&nbsp;<%= @student.mailing_address %><hr/>
+                <strong>Boarder:</strong>&nbsp;&nbsp;&nbsp;<%= @student.boarder %><hr/>
+                <strong>Session:</strong>&nbsp;&nbsp;&nbsp;<%= @student.session %><hr/>
+                <strong>Email Address:</strong>&nbsp;&nbsp;&nbsp;<%= @student.email %><hr/>
+                <strong>Monthly Income:</strong>&nbsp;&nbsp;&nbsp;<%= @student.monthly_income %><hr/>
+                <strong>Income Range:</strong>&nbsp;&nbsp;&nbsp;<%= @student.income_range %><hr/>
                 <strong>DataBurj Username:</strong>&nbsp;&nbsp;&nbsp;<%= @student.username %>
-                <!--<strong>Phone no:</strong>&nbsp;&nbsp;&nbsp;<%= @student.name %><hr/>-->
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 class UndertakingTextsController < ApplicationController
+     before_action :authorize_admin
     def index
         @utext = UndertakingText.find(1)
     end

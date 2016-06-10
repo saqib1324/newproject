@@ -1,5 +1,6 @@
 class CoachingSessionsController < ApplicationController
    skip_before_action :require_session, :only => [:index, :new,:create,:update,:edit,:delete,:destroy,:activate]
+   before_action :authorize_admin
     def index
         @coaching_sessions= CoachingSession.all
     end

@@ -8,6 +8,16 @@ Bundler.require(*Rails.groups)
 
 module Databurjproject
   class Application < Rails::Application
+    ActionMailer::Base.smtp_settings = {
+      :address => 'smtp.office365.com',
+      :domain => 'outlook.office365.com',
+      :port => 587,
+      :username => '17100189@lums.edu.pk',
+      :password => '',
+      :authentication => 'login',
+      :enable_starttls_auto => true
+    }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

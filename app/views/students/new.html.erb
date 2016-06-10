@@ -8,20 +8,28 @@
       <div class="form-wrapper">
         <%= bootstrap_form_for Student.new do |f| %>
           <%= f.errors_on :name %>
+          <%= f.text_field :stream, label: "Stream" %>
           <%= f.text_field :name, label: "Name", :required => true%>
           <%= f.text_field :tracking_id, label: 'NOP Tracking ID', :required => true %>
-          <%= f.select :section, [["Select:", "?"],["Section A", "A"], ["Section B", "B"],["Section C", "C"],["Section D", "D"],["Section E", "E"],["Section F", "F"],["Section G", "G"], ["Section H", "H"], ["Section I", "I"], ["Section J", "J"], ["Section K", "K"], ["Section L", "L"]], { label: "Section" },{ class: "selectpicker" } %>
           <%= f.text_field :father_name, label: 'Father Name', :required => true %>
           <%= f.text_field :DOB, label: 'Date of Birth', :required => true, help: "Be Careful! Enter date in dd/mm/yyyy pattern only" %>
-          <%= f.select :SEX,[["Select:", "?"],["Male", "M"], ["Female", "F"]],{ label: "Gender" },{ class: "selectpicker" }    %>
-          <%= f.text_field :matric_percentage, label: "Matric Percentage", :required => true %>
+          <%= f.select :gender,[["Select:", "?"],["Male", "M"], ["Female", "F"]],{ label: "Gender" },{ class: "selectpicker" }    %>
+          <%= f.text_field :m_o_level_stream, label: "Matric/O-Level Stream" %>
+          <%= f.text_field :matric_percentage, label: "Matric Percentage" %>
+          <%= f.text_field :o_level_grades, label: "O-Level Grades" %>
           <%= f.number_field :monthly_income, label: "Monthly income", :required => true %>
+          <%= f.text_field :income_range, label: "Income Range" %>
+          <%= f.text_field :address1, label: "Address Line 1" %>
+          <%= f.text_field :address2, label: "Address Line 2" %>
+          <%= f.text_field :address3, label: "Address Line 3" %>
           <%= f.text_field :city, label: 'City' %>
+          <%= f.text_field :district, label: 'District' %>
+          <%= f.text_field :province, label: 'Province' %>
+          <%= f.select :boarder, [["Select:"],["Boarder", true], ["Day Scholar", false]], { label: "Boarder" },{ class: "selectpicker" } %>
           <%= f.email_field :email, label: 'Email Address' %>
-          <%= f.text_field :phone_number, label: 'Phone Number', :required => true %>
-          <%= f.text_field :secondary_phone_number, label: 'Secondary Phone Number', :required => true %>
-          <%= f.text_field :mailing_address, label: 'Mailing Address'  %>
-          <%= f.text_field :username, label: 'Username', :required => true  %>
+          <%= f.text_field :mobile_number, label: 'Mobile Number' %>
+          <%= f.text_field :phone_number, label: 'Phone Number' %>
+          <%= f.email_field :username, label: 'Username', :required => true  %>
           <%= f.text_field :password, label: 'Password', :required => true  %>
           <div class="clearfix" type = "submit">
             <%= f.submit  %>

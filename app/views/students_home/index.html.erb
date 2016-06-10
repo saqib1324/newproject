@@ -1,76 +1,185 @@
-<div class = "animated fadeIn">
-  <div id="dashboard-con">
-      <div class="dashboard-left-cell">
-        <div class="admin-content-con">
-          <header class="clearfix">
-            <strong><h3 class="pull-left page_title"><%= @student.name %>'s Summer Coaching Session Undertaking</h3></strong>
-            <div class = "divider pull-right">
-          </header>
-          <div id = "utext"><%=raw UndertakingText.find(1).display_text %></div>
-           <div id = "check-box">
-          <input type="checkbox" id="check" unchecked="unchecked"/>
-         <label for="check" id="checkLabel">I agree to all Terms and Conditions</label><p/>
-          
-    <!--<p hidden id="hideMe"><= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank" %><p></div>-->
-      <p hidden id="hideMe"><%= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank", :class => "btn btn-primary", :role => "button" %><p>
-                 
-<script language="javascript" type="text/javascript">
-var hideTest = {
-  hidePara: function() {
-    if ( $(this).is(':checked') ) {
-      $('p#hideMe').slideDown('slow');
-    } else {
-      $('p#hideMe').slideUp('slow');
-    }
-  },
-  setup: function() {
-    $('#check').change(hideTest.hidePara);
-  }
-};
-$(hideTest.setup);
-</script>
-                 
-                 <div class="checkbox">
-                    <label>
-                     <form action= ""  onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }">
-
-</form>
-                      
-                    </label>
-                    </div>
-                    &nbsp;
-
-                  <hr/>
-                  <strong> Instructions: </strong>
-                  <br>
-                  <p>You are required to follow the instructions mentioned below:</p>
-                  
-                  <ol>
-                    <li>Dowload the voucher from the button given above.</li>
-                    <li>Take a print-out of the voucher.</li>
-                    <li>Submit it in the relevant bank.</li>
-                    <li>Obtain a photocopy of the paid voucher.</li>
-                    <li>Submit the scanned copy of that voucher here before the specified deadline.</li>
-                  </ol>
-                  
-                    &nbsp;
-                    
-                  <!--<p><= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank" %></p>-->
-  
-                    <!--OWAIS WILL WRITE CODE HERE-->
-                    <!--PUT A "DOWNLOAD VOUCHER BUTTON AND DOWLOAD PDF"-->
-          
-                    
-                    <!--<= link_to "Upload Fee Receipt", users_path, :class => "btn btn-primary pull-left", :role => "button" %>-->
-                  
-                  <br/>
-                  <br/>
-                  </div>
-                  </div>
-                  
-      </div>
+<% if @link == "download" %>
+<div id="dashboard-con">
+    <div class="admin-content-con">
+        <div id = "btext">
+            Last date for submission of hostel dues – 29th June 2016<br/>
+            Last date for uploading a scanned copy of the paid voucher – 30th June 2016<br/>
+            Last date for acceptance of invitation (online or by post) – 30th June 2016<br/>
+        </div>
     </div>
-  </div>
+    <div class="admin-content-con">
+        <div class = "divider pull-right">
+            <%= link_to "My Profile", url_for(:controller => "students_home", :action => "profile"),  :class => "btn btn-primary", :role => "button"  %> 
+        </div>
+        Download Fee Voucher<br/><br/>
+        <%= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank", :class => "btn btn-primary", :role => "button" %> 
+        <hr/>Upload Fee Receipt<br/><br/>
+        <%= link_to "Upload Fee Voucher", url_for(:controller => "undertakings", :action => "upload"),  :class => "btn btn-primary", :role => "button"  %>
+        <%= link_to "View Uploaded Fee Voucher", url_for(:controller => "undertakings", :action => "displayfile", id: Student.where(:username => current_user.email).take.tracking_id),target: "_blank",  :class => "btn btn-primary", :role => "button"  %>
+    </div>
+    <div class="admin-content-con">
+        
+        <div class="footers">
+          <div id = "ptext">
+            <b>  In case of any query contact the following personnel before the deadline 
+                Sadia Babar: 042-35608262/ Sharjeel Muazzam: 042-35608438/ Momin Sharif: 042-35608000 (Ext. 2419)/ Shajia Shoaib: 042-35608204
+            </b>
+          </div>
+          
+       </div>
+        
+        
+        
+    </div>
 </div>
 
 
+
+
+
+
+<% else %>
+
+    <div id = "btext">
+        Last date for submission of hostel dues – 29th June 2016<br/>
+        Last date for uploading a scanned copy of the paid voucher – 30th June 2016<br/>
+        Last date for acceptance of invitation (online or by post) – 30th June 2016<br/>
+    	<!--<h1>IDEABOX - Multipurpose Step Form.js</h1>-->
+        <!--<h2>A clean, basic, flat, full responsive, mobile friendly, form validate and multipurpose step form</h2>-->
+    </div>
+    
+    <div class="containers">
+    	<div class="container-tops">
+        	
+        
+        <!--STEPS FORM START ------------ -->
+        <div class="stepsForm">
+            <form method="post">
+                <div class="sf-steps">
+                    <div class="sf-steps-content">
+                    	<div>
+                        	<span>1</span> Instructions
+                        </div>
+                        <div>
+                        	<span>2</span> Offer Letter
+                        </div>
+                        <div>
+                        	<span>3</span> Undertaking
+                        </div>
+                        <div>
+                        	<span>4</span> Voucher Download
+                        </div>
+                    </div>
+                </div>                
+                <div class="sf-steps-form sf-radius"> 
+                    
+                    <ul class="sf-content"> <!-- form step one --> 
+                         <li>
+                            <div class="sf_columns column_6">
+                                <label class="sf-select">
+                                	Instructions
+                                
+                                	<ol>
+                                        <li><p align = "left">Read Undertaking and terms and conditions carefully.</p></li>
+                                        <li><p align = "left">Accept Undertaking, Download Fee Voucher and Submit it to any branch of Allied Bank in Pakistan.</p</li>
+                                        <li><p align = "left">Take Photo or Scan submitted Fee voucher and Upload here.</p></li>
+                                        <li><p align = "left">If you don't have scanner facility, send photocopy of paid voucher back to LUMS on the following address:</p></li>
+                                    </ol>
+                                
+                                </label>
+                    <%= link_to "My Profile", url_for(:controller => "students_home", :action => "profile"),  :class => "btn btn-primary", :role => "button"  %>            
+                            </div>
+                         </li>
+                    </ul>
+                       
+                    <ul class="sf-content"> <!-- form step two --> 
+                         <li>
+                            <div class="sf_columns column_6">
+                                <div id = "utext">
+                                <% if @student.boarder == true %>
+                                <%= raw Letter.find(1).boarder_letter_text %>
+                                <% else %>
+                                <%= raw Letter.find(1).day_scholar_letter_text %>
+                                <% end %>
+                                </div>
+                            <!--    < student_id = @student.tracking_id %>-->
+                            <!--    < active_session = CoachingSession.where(:status => true).take.name %>-->
+                            <!--    < Tracking.create(:session => active_session,:tracking_id => :student_id,:name => @student.name,:accepted => true) %>-->
+                            </div>
+                              <div class="sf-check">
+                                    <label><input type="checkbox" value="test" name="test" data-required="true"><span></span> I acknowledge that I have read all the instructions and conditions stated in my NOP SCS 2016 Invitation Letter</label>
+                                </div>
+                         </li>
+                    </ul>
+    
+                    <ul class="sf-content"> <!-- form step tree --> 
+                         <li>
+                            <div class="sf_columns column_6">
+                                <div id = "utext">
+                                I, <b><%= @student.name %></b> son/daughter of <b><%= @student.father_name %></b> resident of <b><%= @student.address1 %>,<%= @student.address2 %>,<%= @student.address3 %></b>
+                                confirm my participation in the coaching session being held at LUMS, from July 18th, 2016 to August 1st, 2016.
+                                <br/>Moreover, I have checked my profile information and it is correct.
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="sf-check">
+                                
+                                    <!--<label><input type="checkbox" value="test" name="test" data-required="true"><span></span> I certify that I will adhere to the policies stated in the undertaking</label>-->
+                                    <label><input type="checkbox" value="test" name="test" data-required="true"><span></span> I certify that I have accepted my NOP Summer Coaching Session 2016 Invitation and will attend the session starting on Monday, 18th July 2016.</label>
+                            </div>
+                         </li>
+                    </ul>
+                    
+                    <ul class="sf-content"> <!-- form step four --> 
+                         <li>
+                            <div class="sf_columns column_6">
+                                Download Fee Voucher<br/><br/>
+                                <%= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank", :class => "btn btn-primary", :role => "button" %> 
+                                <hr/>Upload Fee Receipt<br/><br/>
+                                <%= link_to "Upload Fee Voucher", url_for(:controller => "undertakings", :action => "upload"),  :class => "btn btn-primary", :role => "button"  %>
+      <%= link_to "View Uploaded Fee Voucher", url_for(:controller => "undertakings", :action => "displayfile", id: Student.where(:username => current_user.email).take.tracking_id),target: "_blank",  :class => "btn btn-primary", :role => "button"  %>
+                            
+                            </div>
+                         </li>
+                    </ul>
+                    
+                </div>
+                
+                <div class="sf-steps-navigation sf-align-right">
+                	<span id="sf-msg" class="sf-msg-error"></span>
+                	<button id="sf-prev" type="button" class="sf-button">Previous</button>
+                    <button id="sf-next" type="button" class="sf-button ">Next</button>
+                </div>
+            </form>
+        </div>
+        <!--STEPS FORM END -------------- -->
+		
+        
+        <div class="footers">
+          <div id = "ptext">
+            <b>  In case of any query contact the following personnel before the deadline 
+Sadia Babar: 042-35608262/ Sharjeel Muazzam: 042-35608438/ Momin Sharif: 042-35608000 (Ext. 2419)/ Shajia Shoaib: 042-35608204
+</b>
+          </div>
+          
+       </div>
+        
+    </div>
+
+<script>
+	$(document).ready(function(e) {
+       	
+		$(".stepsForm").stepsForm({
+			theme:'purple'
+		}); 
+		
+		$(".container .themes>span").click(function(e) {
+			$(".container .themes>span").removeClass("selectedx");
+			$(this).addClass("selectedx");
+            $(".stepsForm").removeClass().addClass("stepsForm");
+			$(".stepsForm").addClass("sf-theme-"+$(this).attr("data-value"));
+        });
+    });
+</script>
+
+<% end %>

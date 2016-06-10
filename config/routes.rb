@@ -1,24 +1,34 @@
 Rails.application.routes.draw do
+  # get 'letters/index'
+
   get 'students_home/index'
-
   get 'students_home/profile'
-
   root 'home#index'
-  
   get 'students/import_sample'
+  get 'students/delete_all' => 'students#delete_all'
   get 'students/view' => 'students#view'
+  get 'students_home/password_reset'
+  get 'voucher_mappings/bulk_download'
+  get 'voucher_mappings/delete_all'
   get 'coaching_sessions/index'
   get 'undertakings/pending'
-  get 'undertakings/manage'
   get 'undertakings/upload'
-  get 'undertakings/displayfile'
+  get 'undertakings/manage'
+  get 'undertakings/accepted_view'
+  get 'undertakings/downloaded_view'
+  get "voucher_nos/update_it"
   get "activate_coaching_sessions" => "coaching_sessions#activate"
   get 'students/:id/view' => 'students#index'
+  get 'letters/index'
   get 'students_home/profile'
   devise_for :users, controllers: { registrations: "registrations"}
   resources :coaching_sessions
+  resources :letters
   resources :students_home
   resources :students do
+    collection { post :import }
+  end
+  resources :voucher_mappings do
     collection { post :import }
   end
   resources :home

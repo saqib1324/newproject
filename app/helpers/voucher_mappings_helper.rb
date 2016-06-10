@@ -1,0 +1,2 @@
+module VoucherMappingsHelper
+end

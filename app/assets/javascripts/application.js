@@ -33,4 +33,18 @@ $(document).ready(function() {
 });
 
 
-
+// <script language="javascript" type="text/javascript">
+var hideTest = {
+  hidePara: function() {
+    if ( $(this).is(':checked') ) {
+      $('p#hideMe').slideDown('slow');
+    } else {
+      $('p#hideMe').slideUp('slow');
+    }
+  },
+  setup: function() {
+    $('#check').change(hideTest.hidePara);
+  }
+};
+$(hideTest.setup);
+// </script>

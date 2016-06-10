@@ -6,22 +6,26 @@
         <div class="admin-content-con">
           <header class="clearfix">
             <strong><h3 class="pull-left page_title"><%= @student.name %>'s details</h3></strong>
-            <div class = "divider pull-right">
-            
+            <div class = " pull-right">
+                  <%= link_to "Back", url_for(:controller => "students_home", :action => "index"),  :class => " btn btn-primary", :role => "button"  %>
           </header>
               <strong>Name:</strong>&nbsp;&nbsp;&nbsp;<%= @student.name %><hr/>
               <strong>Tracking ID:</strong>&nbsp;&nbsp;&nbsp;<%= @student.tracking_id %><hr/>
-              <strong>Section:</strong>&nbsp;&nbsp;&nbsp;<%= @student.section %><hr/>
               <strong>Father's Name:</strong>&nbsp;&nbsp;&nbsp;<%= @student.father_name %><hr/>
               <strong>Date of Birth:</strong>&nbsp;&nbsp;&nbsp;<%= @student.DOB %><hr/>
               <strong>Matric Percentage:</strong>&nbsp;&nbsp;&nbsp;<%= @student.matric_percentage %><hr/>
-              <strong>Monthly Income:</strong>&nbsp;&nbsp;&nbsp;<%= @student.monthly_income %><hr/>
-              <strong>Gender:</strong>&nbsp;&nbsp;&nbsp;<%= @student.SEX %><hr/>
+              <strong>O-Level Grades:</strong>&nbsp;&nbsp;&nbsp;<%= @student.o_level_grades %><hr/>
+              <strong>Graduation Year:</strong>&nbsp;&nbsp;&nbsp;<%= @student.graduation_year %><hr/>
+              <strong>Gender:</strong>&nbsp;&nbsp;&nbsp;<%= @student.gender %><hr/>
+              <strong>Address Line 1:</strong>&nbsp;&nbsp;&nbsp;<%= @student.address1 %><hr/>
+              <strong>Address Line 2:</strong>&nbsp;&nbsp;&nbsp;<%= @student.address2 %><hr/>
+              <strong>Address Line 3:</strong>&nbsp;&nbsp;&nbsp;<%= @student.address3 %><hr/>
               <strong>City:</strong>&nbsp;&nbsp;&nbsp;<%= @student.city %><hr/>
+              <strong>District:</strong>&nbsp;&nbsp;&nbsp;<%= @student.district %><hr/>
+              <strong>Province:</strong>&nbsp;&nbsp;&nbsp;<%= @student.province %><hr/>
               <strong>Email Address:</strong>&nbsp;&nbsp;&nbsp;<%= @student.email %><hr/>
-              <strong>Phone number:</strong>&nbsp;&nbsp;&nbsp;<%= @student.phone_number %><hr/>
-              <strong>Secondary Phone number:</strong>&nbsp;&nbsp;&nbsp;<%= @student.secondary_phone_number %><hr/>
-              <strong>Mailing Address:</strong>&nbsp;&nbsp;&nbsp;<%= @student.mailing_address %><hr/>
+              <strong>Phone number:</strong>&nbsp;&nbsp;&nbsp;<%= @student.mobile_number %><hr/>
+              <strong>Secondary Phone number:</strong>&nbsp;&nbsp;&nbsp;<%= @student.phone_number %><hr/>
               <strong>DataBurj Username:</strong>&nbsp;&nbsp;&nbsp;<%= @student.username %>
       </div>
     </div>

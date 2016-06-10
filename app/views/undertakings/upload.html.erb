@@ -1,8 +1,13 @@
+ 
   <div class="admin-content-con">
+    <div class = "pull-right">
+          <%= link_to "Home", url_for(:controller => "students_home", :action => "index"),  :class => "btn btn-primary", :role => "button"  %>
+</div>
   <% if @undertaking == "already_uploaded" %> 
     File is already uploaded.
-    <br>
-    <%= link_to "Upload File again", url_for(:controller => "undertakings", :action => "destroy", id: Student.where(:username => current_user.email).take.tracking_id), method: :delete,  :class => 'btn btn-xs btn-primary', :role => "button" %>
+    <br/><br/>
+    <%= link_to "Upload File again", url_for(:controller => "undertakings", :action => "destroy", id: Student.where(:username => current_user.email).take.tracking_id), method: :delete,  :class => 'btn btn-primary', :role => "button" %>
+         <%= link_to "View Uploaded Fee Voucher", url_for(:controller => "undertakings", :action => "displayfile", id: Student.where(:username => current_user.email).take.tracking_id),target: "_blank",  :class => "btn btn-primary", :role => "button"  %>
   <% else %>
     
       <%= form_for(@undertaking, :html => {:multipart => true}) do |f| %>

@@ -20,6 +20,9 @@
 @import "summernote";
 @import "font-awesome";
 
+.max-width{
+    width: 100%;
+}
 .form-control-special{
     display: block;
     width: 100%;

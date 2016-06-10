@@ -1,7 +1,28 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+#btext {
+    // background-color: #bcf6e8;
+    background-color: #c6f2c7;
+    width: 100%;
+    padding: 25px;
+    margin: 0px;
+	color: black;
+}
+
+
+#ptext {
+    // background-color: #bcf6e8;
+    background-color: #EFF2B9;
+    width: full;
+    padding: 25px;
+    margin: 25px;
+	color: black;
+}
+
 #utext {
     background-color: #bcf6e8;
+    // background-color: #EFF2B9;
     width: full;
     padding: 25px;
     margin: 25px;

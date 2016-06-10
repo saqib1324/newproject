@@ -1,0 +1,87 @@
+<div class="admin-content-con">
+
+    <% if @voucher %>
+      <div class = "divider pull-right">
+        <%= link_to 'Bulk Download', url_for(:controller => :voucher_mappings, :action => :bulk_download,format: "pdf"),target: "_blank" , :class => 'btn btn-xs btn-primary', :role => "button" %>
+      </div>
+      <h5>New Fee Voucher will be generated against fee voucher no : <%= @voucher.voucher_no %> (if it is not already assigned to a student.)</h5>
+       
+       <%= link_to 'Update Voucher No', url_for(:controller => "voucher_nos" , :action => "update_it" , :voucher_no => @voucher.voucher_no) , :class => 'btn btn-xs btn-primary', :role => "button" %>
+        <% else %>
+      <br>
+      <%= bootstrap_form_tag url: '/voucher_mappings/iterate' do |f| %>
+        <%= f.text_field :voucher_starting_no, value: '108201600000000001' %>
+        <%= f.submit %> it for bulk download of fee vouchers.
+      <% end %>
+    <% end %>
+</div>
+
+ <div class = "animated fadeIn" ng-app="VoucherMappingsr" ng-controller="VoucherMappingCtrl">
+<div id="dashboard-con">
+    <div>
+      <ng-view></ng-view>
+      <div class="dashboard-left-cell">
+        <div class="admin-content-con">
+          <header class="clearfix">
+            <strong><h5 class="pull-left page_title">Fee Vouchers Mapping</h5></strong>
+            <div class="col-sm-2 pull-right lil">
+              <input type="text" class="form-control-special" ng-model="searchString" placeholder="Search Students"/>
+            </div>
+            <div class = "divider pull-right">
+              <%= link_to "Delete All", url_for(:controller => "voucher_mappings" , :action => "delete_all"), :class => "btn btn-xs btn-primary pull-right", :role => "button",:data => {confirm: 'Are you sure you want to delete all ?'} %> 
+            </div>
+          </header>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Voucher No</th>
+                <th>Tracking ID</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                  <tr ng-repeat="voucher in vouchers | searchFor:searchString">
+                  <td>{{ voucher.voucher_no }}</td>
+                  <td>{{ voucher.tracking_id }}</td>
+                  <td>
+                    <%= link_to 'New Voucher', URI::unescape(voucher_mapping_path(:id => '{{voucher.tracking_id}}',:format => "pdf")),:target => "blank", :class => 'btn btn-xs btn-primary', :role => "button" %>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+    </div>
+    </div>
+<script>
+    var stdMod = angular.module('VoucherMappingsr', []); 
+  stdMod.controller('VoucherMappingCtrl', function ($rootScope, $http) {
+    $rootScope.vouchers = []
+    <% if @vouchers!=nil%>
+      <% @vouchers.each do |voucher| %>
+        $rootScope.vouchers.push({
+          voucher_no:'<%= voucher.voucher_no %>',
+          tracking_id: '<%= voucher.tracking_id %>'
+        })
+    <% end %>
+  <% end %>
+  });
+  stdMod.filter('searchFor', function(){
+  return function(arr, searchString){
+    if(!searchString){
+      return arr;
+    }
+    var result = [];
+    searchString = searchString.toLowerCase();
+    angular.forEach(arr, function(item){
+      if(item.voucher_no.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if(item.tracking_id.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }
+    });
+    return result;
+  };
+  });
+</script>

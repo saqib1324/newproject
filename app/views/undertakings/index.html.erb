@@ -1,33 +1,40 @@
-<div class = "animated fadeIn">
+<div class = "animated fadeIn" ng-app="Undertakingsr" ng-controller="UndertakingCtrl">
   <div id="dashboard-con">
     <div>
+      <ng-view></ng-view>
       <div class="dashboard-left-cell">
         <div class="admin-content-con">
           <header class="clearfix">
             <strong><h5 class="pull-left page_title">All Students with Accepted Fee Vouchers</h5></strong>
-            
+            <div class="col-sm-2 pull-right lil">
+              <input type="text" class="form-control-special" ng-model="searchString" placeholder="Search Students"/>
+            </div>
           </header>
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>Name </th>
                 <th>Tracking ID </th>
                 <th>Acceptance Stream</th>
-                <th>Actions</th>
+                <!--<th>Actions</th>-->
               </tr>
             </thead>
             <tbody>
-              <% @undertakings.each do |undertaking| %>
-                <tr>
-                  <td><%= Student.where(:tracking_id => undertaking.tracking_id).take.name %></td>
-                  <td><%= undertaking.tracking_id %></td>
-                  <td><%= undertaking.via %></td>
+              <!--< @undertakings.each do |undertaking| %>-->
+                <tr ng-repeat="undertaking in undertakings | searchFor:searchString">
+                <!--<tr >-->
+                  <!--<td><= Student.where(:tracking_id => undertaking.tracking_id).take.name %></td>-->
+                  <!--<td><= undertaking.tracking_id %></td>-->
+                  <!--<td><= undertaking.via %></td>-->
+                  <!--<td>{{ Student.where(:tracking_id => undertaking.tracking_id).take.name }}<td>-->
+                  <td>{{ undertaking.tracking_id }}</td>
+                  <td>{{ undertaking.via }}</td>
                   
                   <td>
-                    <%= link_to 'View',url_for(:controller => "undertakings",:action => "displayfile",:id => undertaking.tracking_id) ,target: "_blank", :class => 'btn btn-xs btn-primary', :role => "button" %>
+                    <!--<= link_to 'View',URI::unescape( :controller => "undertakings",:action => "displayfile", :id => '{{undertaking.tracking_id}}'),target: "_blank", :class => 'btn btn-xs btn-primary', :role => "button" %>-->
+                    <!--<= link_to 'View',url_for(:controller => "undertakings",:action => "displayfile",:id => undertaking.tracking_id) ,target: "_blank", :class => 'btn btn-xs btn-primary', :role => "button" %>-->
                   </td>
               </tr>
-              <% end %>                
+              <!--< end %>                -->
             </tbody>
           </table>
         </div>
@@ -36,3 +43,34 @@
   </div>
 
 </div>
+<script>
+    var stdMod = angular.module('Undertakingsr', []); 
+  stdMod.controller('UndertakingCtrl', function ($rootScope, $http) {
+    $rootScope.undertakings = []
+    <% if @undertakings!=nil%>
+      <% @undertakings.each do |undertaking| %>
+        $rootScope.undertakings.push({
+          tracking_id: '<%= undertaking.tracking_id %>',
+          via: '<%= undertaking.via%>'
+        })
+    <% end %>
+  <% end %>
+  });
+  stdMod.filter('searchFor', function(){
+  return function(arr, searchString){
+    if(!searchString){
+      return arr;
+    }
+    var result = [];
+    searchString = searchString.toLowerCase();
+    angular.forEach(arr, function(item){
+      if(item.tracking_id.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }else if (item.via.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
+      }
+    });
+    return result;
+  };
+  });
+</script>

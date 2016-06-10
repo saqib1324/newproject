@@ -3,25 +3,25 @@
   <div class="row">
     <div class="admin-content-con">
       <header class="clearfix">
-        <h5 class="pull-left"><strong>Rejected Fee vouchers sent via APP</h5></strong>
+        <h5 class="pull-left"><strong>Rejected Fee vouchers sent via system</h5></strong>
       </header>
       <table class="table table-striped">
         <thead>
           <tr>
             <th>Name</th>
             <th>Tracking ID </th>
+            <th>Mobile Number </th>
             <th>Phone Number </th>
-            <th>Secondary Number </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @rstudents.each do |student| %>
             <tr>
-              <td><%= student.name %></td>
+              <td><%= student.name.titleize() %></td>
               <td><%= student.tracking_id %></td>
+              <td><%= student.mobile_number %></td>
               <td><%= student.phone_number %></td>
-              <td><%= student.secondary_phone_number %></td>
               <td>
                 <%= link_to 'View',url_for(:controller => "undertakings",:action => "displayfile",:id => student.tracking_id) ,target: "_blank", :class => 'btn btn-xs btn-warning', :role => "button" %>
                 <%= link_to 'Accept', undertakings_path(:admin => "accept_file",:id => student.tracking_id), :class => 'btn btn-xs btn-primary', :role => "button" %>
@@ -37,25 +37,25 @@
   <div class="row">
     <div class="admin-content-con">
       <header class="clearfix">
-        <h5 class="pull-left"><strong>Pending Fee vouchers sent via APP</strong></h5>
+        <h5 class="pull-left"><strong>Pending Fee vouchers sent via system</strong></h5>
       </header>
       <table class="table table-striped">
         <thead>
           <tr>
             <th>Name</th>
             <th>Tracking ID </th>
+            <th>Mobile Number </th>
             <th>Phone Number </th>
-            <th>Secondary Number </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @pstudents.each do |student| %>
             <tr>
-              <td><%= student.name %></td>
+              <td><%= student.name.titleize() %></td>
               <td><%= student.tracking_id %></td>
+              <td><%= student.mobile_number %></td>
               <td><%= student.phone_number %></td>
-              <td><%= student.secondary_phone_number %></td>
               <td>
                 <%= link_to 'View',url_for(:controller => "undertakings",:action => "displayfile",:id => student.tracking_id) ,target: "_blank", :class => 'btn btn-xs btn-warning', :role => "button" %>
                 <%= link_to 'Accept', undertakings_path(:admin => "accept_file",:id => student.tracking_id), :class => 'btn btn-xs btn-primary', :role => "button" %>

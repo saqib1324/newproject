@@ -6,7 +6,7 @@
       <div class="dashboard-left-cell">
         <div class="admin-content-con">
           <header class="clearfix">
-            <strong><h5 class="pull-left page_title">All Students with no response</h5></strong>
+            <strong><h5 class="pull-left page_title">All Students with no response : <%= @count %></h5></strong>
             <div class="col-sm-2 pull-right lil">
               <input type="text" class="form-control-special" ng-model="searchString" placeholder="Search Students"/>
             </div>
@@ -16,8 +16,8 @@
               <tr>
                 <th>Name</th>
                 <th>Tracking ID </th>
+                <th>Mobile Number </th>
                 <th>Phone Number </th>
-                <th>Secondary Number </th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -27,8 +27,8 @@
                   
                   <td>{{student.name}}</td>
                   <td>{{student.tracking_id}}</td>
+                  <td>{{student.mobile_number}}</td>
                   <td>{{student.phone_number}}</td>
-                  <td>{{student.secondary_phone_number}}</td>
                   <td>
                     <%= link_to 'Accept',URI::unescape( undertakings_path(:admin => "accept_file", :id => '{{student.tracking_id}}')), :class => 'btn btn-xs btn-primary', :role => "button" %>
                   </td>
@@ -48,16 +48,10 @@
     <% if @students!=nil%>
       <% @students.each do |student| %>
         $rootScope.students.push({
-          id: '<%= student.id %>',
-          name:'<%= student.name %>',
+          name:'<%= student.name.titleize() %>',
           tracking_id: '<%= student.tracking_id %>',
-          phone_number: '<%= student.phone_number %>',
-          secondary_phone_number: '<%= student.secondary_phone_number%>',
-          matric_percentage: '<%= student.matric_percentage %>',
-          monthly_income: '<%= student.monthly_income %>',
-          section: '<%= student.section %>',
-          SEX: '<%= student.SEX%>',
-          city: '<%= student.city%>'
+          mobile_number: '<%= student.mobile_number%>',
+          phone_number: '<%= student.phone_number%>'
         })
     <% end %>
   <% end %>
@@ -74,19 +68,9 @@
         result.push(item);
       }else if(item.tracking_id.toLowerCase().indexOf(searchString) !== -1){
         result.push(item);
+      }else if (item.mobile_number.toLowerCase().indexOf(searchString) !== -1){
+        result.push(item);
       }else if (item.phone_number.toLowerCase().indexOf(searchString) !== -1){
-        result.push(item);
-      }else if (item.secondary_phone_number.toLowerCase().indexOf(searchString) !== -1){
-        result.push(item);
-      }else if(item.matric_percentage.toLowerCase().indexOf(searchString) !== -1){
-        result.push(item);
-      }else if(item.monthly_income.toLowerCase().indexOf(searchString) !== -1){
-        result.push(item);
-      }else if(item.section.toLowerCase().indexOf(searchString) !== -1){
-        result.push(item);
-      }else if(item.SEX.toLowerCase().indexOf(searchString) !== -1){
-        result.push(item);
-      }else if(item.city.toLowerCase().indexOf(searchString) !== -1){
         result.push(item);
       }
     });

@@ -18,10 +18,20 @@ class Student < ActiveRecord::Base
                 student = find_by_tracking_id(row["tracking_id"]) || new
                 student.attributes = row.to_hash.slice(*row.to_hash.keys)
                 student.session = CoachingSession.where(:status => true).take.name
-                student.save!
-                # Undertaking.create!(:tracking_id => student.tracking_id,:data => "",:via => "Mail",:session => student.session,:admin_status => false,:status => false)
-                User.create!(:email => student.username,:password => student.password,:role => "student")
+                if student.city
+                    if student.city.titleize().strip=="Lahore"
+                        student.boarder = false
+                    else
+                        student.boarder = true
+                    end
+                end
                 
+                student.secondary_tracking = student.password
+                # begin
+                    student.save!
+                    User.create!(:email => student.username,:password => student.password,:role => "student")
+                # rescue 
+                # end
             end
         end
         

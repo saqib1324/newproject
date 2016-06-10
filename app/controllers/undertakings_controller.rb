@@ -1,5 +1,6 @@
 class UndertakingsController < ApplicationController
-    
+    before_action :authorize_admin
+    skip_before_action :authorize_admin, :only => [:create,:upload,:destroy, :displayfile]
     def index
         if params[:admin] == "view_file"
             @file = Undertaking.find_by(:tracking_id => params[:id])
@@ -12,12 +13,16 @@ class UndertakingsController < ApplicationController
             @undertaking = Undertaking.find_by(:tracking_id => params[:id])
             if @undertaking
                 @undertaking.update(:admin_status => true)
+                fee_voucher = FeeVoucher.where(:tracking_id => params[:id],:status => "unpaid").take
+                fee_voucher.update(:status => "paid")
                 flash[:notice] = "Fee Voucher accepted"
                 redirect_to url_for(:controller => "undertakings",:action => "manage")
             else
                 Undertaking.create_mail(params[:id])
                 @undertaking = Undertaking.find_by(:tracking_id => params[:id])
                 if (@undertaking)
+                    fee_voucher = FeeVoucher.where(:tracking_id => params[:id],:status => "unpaid").take
+                    fee_voucher.update(:status => "paid")
                     flash[:notice] = "Fee Voucher accepted"
                     redirect_to url_for(:controller => "undertakings",:action => "pending")
                 else
@@ -94,7 +99,7 @@ class UndertakingsController < ApplicationController
         @undertaking = Undertaking.where(:tracking_id => params[:id]).take
         if @undertaking.present?
           @undertaking.destroy
-          flash[:notice] = "file destroyed successfully"
+          flash[:notice] = "Previous file destroyed successfully"
         end
         redirect_to(:controller => "undertakings", :action => "upload")
     end
@@ -102,6 +107,7 @@ class UndertakingsController < ApplicationController
         @active_session =      CoachingSession.where(:status => true).take.name
         @ids =  Undertaking.find_by_sql "select tracking_id from undertakings where status = true AND session = (select name from coaching_sessions where status = true )"
         @students =     Student.where.not(tracking_id: @ids).where(:session => @active_session)
+        @count = @students.count
     end
     def manage
         @active_session = CoachingSession.where(:status => true).take.name
@@ -119,6 +125,17 @@ class UndertakingsController < ApplicationController
         else
             @undertaking = Undertaking.new
         end 
+    end
+    
+    def accepted_view
+        active_session = CoachingSession.where(:status => true).take.name
+        @trackings = Tracking.where(:session => active_session, :accepted => true)
+        @count = @trackings.count
+    end
+    def downloaded_view
+        active_session = CoachingSession.where(:status => true).take.name
+        @trackings = Tracking.where(:session => active_session, :downloaded => true)
+        @count = @trackings.count
     end
     def displayfile
         # @id =Student.find_by_username(current_user.email).tracking_id
