@@ -24,7 +24,7 @@ class BulkDownloadPdf < Prawn::Document
                 VoucherNo.last.destroy
                 VoucherNo.create(:voucher_no => voucher_no_new)
                 VoucherMapping.create(:session => @active_session.name, :voucher_no => voucher_no_old,:tracking_id => student.tracking_id)
-                FeeVoucher.create(:name => student.name , :voucher_no => voucher_no_old , :tracking_id => student.tracking_id , :total_amount => "2200" ,:payment_deadline => "June 29,2016",:status => "unpaid", :mobile_number => student.mobile_number , :email => student.email , :phone_number => student.phone_number)
+                FeeVoucher.create(:name => student.name , :voucher_no => voucher_no_old , :tracking_id => student.tracking_id , :total_amount => "2200" ,:payment_deadline => "20160629",:status => "unpaid", :mobile_number => student.mobile_number , :email => student.email , :phone_number => student.phone_number)
             end
             border(student) 
         end
@@ -249,7 +249,7 @@ class BulkDownloadPdf < Prawn::Document
          indent(5) do
             
             text "\n<b><u>ABL Helpline Numbers:</u></b>", :size => 9, :inline_format => true
-            text "1- Head Office (92-42-35909132) (Muhammad Irfan/Asif Sheikh)", :size => 9
+            text "1- Head Office (92-42-35909132) (Muhammad Irfan/Ali Haider)", :size => 9
             text "2- Region Office (92-42-35747603) (Muhammad Ali)",:size => 9
         end
         

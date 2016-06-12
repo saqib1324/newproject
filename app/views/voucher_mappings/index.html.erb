@@ -1,6 +1,9 @@
 <div class="admin-content-con">
 
     <% if @voucher %>
+    <div class = "divider pull-right">
+        <%= link_to 'Download Excel File', url_for(:controller => :voucher_mappings, :action => :download_csv),target: "_blank" , :class => 'btn btn-xs btn-primary', :role => "button" %>
+      </div>
       <div class = "divider pull-right">
         <%= link_to 'Bulk Download', url_for(:controller => :voucher_mappings, :action => :bulk_download,format: "pdf"),target: "_blank" , :class => 'btn btn-xs btn-primary', :role => "button" %>
       </div>

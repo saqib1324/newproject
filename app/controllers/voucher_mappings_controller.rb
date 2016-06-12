@@ -24,7 +24,7 @@ class VoucherMappingsController < ApplicationController
       VoucherNo.create(:voucher_no => voucher_no_new)
       VoucherMapping.create(:session => @active_session.name, :voucher_no => voucher_no_old,:tracking_id => params[:id])
       student = Student.find_by_tracking_id(params[:id])
-      FeeVoucher.create(:name => student.name , :voucher_no => voucher_no_old , :tracking_id => student.tracking_id , :total_amount => "2200" ,:payment_deadline => "June 29,2016",:status => "unpaid", :mobile_number => student.mobile_number , :email => student.email , :phone_number => student.phone_number)
+      FeeVoucher.create(:name => student.name , :voucher_no => voucher_no_old , :tracking_id => student.tracking_id , :total_amount => "2200" ,:payment_deadline => "20160629",:status => "unpaid", :mobile_number => student.mobile_number , :email => student.email , :phone_number => student.phone_number)
       
     end
     @voucher=VoucherMapping.find_by_tracking_id(params[:id])
@@ -51,7 +51,6 @@ class VoucherMappingsController < ApplicationController
         format.html { redirect_to students_path}
         format.json { render :show, status: :created, location: @voucher }
       else
-     #   redirect_to new_student_path
         format.html { render :new }
         format.json {  render json: @voucher.errors, status: :unprocessable_entity }
       end
@@ -81,7 +80,10 @@ class VoucherMappingsController < ApplicationController
     end
   end
   def delete_all
-    ActiveRecord::Base.connection.execute("truncate voucher_mappings;truncate trackings;truncate undertakings;")
+    ActiveRecord::Base.connection.execute("truncate voucher_mappings;")
+    ActiveRecord::Base.connection.execute("truncate trackings;")
+    ActiveRecord::Base.connection.execute("truncate fee_vouchers;")
+    ActiveRecord::Base.connection.execute("truncate undertakings;")
     redirect_to voucher_mappings_path
   end
   def iterate
@@ -103,16 +105,28 @@ class VoucherMappingsController < ApplicationController
       @active_session = CoachingSession.where(:status => true).take
       @students = @students.where(:session => @active_session.name,:boarder => true)
       respond_to do |format|
-          format.html
-          format.pdf do
-              pdf = BulkDownloadPdf.new(@students,@active_session)
-              send_data pdf.render, filename: "Fee_vouchers.pdf", type: "application/pdf", disposition: "inline"
-          end
+        format.html
+        format.pdf do
+          pdf = BulkDownloadPdf.new(@students,@active_session)
+
+          send_data pdf.render, filename: "Fee_vouchers.pdf", type: "application/pdf", disposition: "inline"
+        end
       end
     else
       flash[:notice] = "Specify a starting fee voucher number first "
       redirect_to voucher_mappings_path
     end
+  end
+  def download_csv
+    vouchers=FeeVoucher.all
+    package = Axlsx::Package.new
+    workbook = package.workbook
+    workbook.add_worksheet(name: "Basic work sheet") do |sheet|
+      vouchers.each do |vc|
+        sheet.add_row [Date.today.to_formatted_s(:number),vc.voucher_no,"NOP Summer Coaching Session","-",vc.total_amount,vc.tracking_id,"-","System UID","-",vc.name,0,"-",vc.payment_deadline,vc.payment_deadline], :types => [nil,:string]
+      end
+    end
+    send_data package.to_stream.read, :filename => "voucher_details.xlsx"
   end
   private
   # Use callbacks to share common setup or constraints between actions.

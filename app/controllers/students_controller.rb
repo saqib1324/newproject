@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
       fee_voucher = FeeVoucher.find_by_voucher_no(@voucher.voucher_no)
       if not fee_voucher
         student = Student.find_by_tracking_id(params[:id])
-        FeeVoucher.create(:name => student.name , :voucher_no => @voucher.voucher_no , :tracking_id => student.tracking_id , :total_amount => "2200" ,:payment_deadline => "June 29,2016",:status => "unpaid")
+        FeeVoucher.create(:name => student.name , :voucher_no => @voucher.voucher_no , :tracking_id => student.tracking_id , :total_amount => "2200" ,:payment_deadline => "20160629",:status => "unpaid")
       end
     else
       voucher=VoucherNo.last

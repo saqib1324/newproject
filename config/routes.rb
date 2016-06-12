@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'students/view' => 'students#view'
   get 'students_home/password_reset'
   get 'voucher_mappings/bulk_download'
+  get 'voucher_mappings/download_csv'
   get 'voucher_mappings/delete_all'
   get 'coaching_sessions/index'
   get 'undertakings/pending'

@@ -1,6 +1,6 @@
 class UndertakingsController < ApplicationController
     before_action :authorize_admin
-    skip_before_action :authorize_admin, :only => [:create,:upload,:destroy, :displayfile]
+    skip_before_action :authorize_admin, :only => [:create,:upload,:destroy, :displayfile, :day_scholar]
     def index
         if params[:admin] == "view_file"
             @file = Undertaking.find_by(:tracking_id => params[:id])
@@ -147,6 +147,19 @@ class UndertakingsController < ApplicationController
             redirect_to :controller => "students_home",:action => "index" 
         end
     end
+    def day_scholar
+        @active_session = CoachingSession.where(:status => true).take.name
+        undertaking = Undertaking.where(:tracking_id => params[:id], :session => @active_session)
+        if undertaking
+            flash[:notice] = "You have already submitted your undertaking"
+            redirect_to :controller => :students_home, :action => :index
+        else
+            Undertaking.create(:tracking_id => params[:id], :status => true, :admin_status => true, :via => "Electronic", :session => @active_session)
+            flash[:notice] = "Undertaking Accepted. All done"
+            redirect_to :controller => "students_home", :action => "index"
+        end
+    end
+    
     private
     def set_params
         params.permit( :tracking_id, :status,:session, :admin_status, :file_name, :data, :mime_type)

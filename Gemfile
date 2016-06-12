@@ -11,10 +11,7 @@ gem 'angular-rails-templates'
 gem 'angularjs-rails'
 gem 'summernote-rails'
 gem "font-awesome-rails"
-# For password protection on github
-gem 'figaro'
 gem 'simple_form'
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'

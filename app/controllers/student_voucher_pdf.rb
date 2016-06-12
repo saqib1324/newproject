@@ -255,7 +255,7 @@ class StudentVoucherPdf < Prawn::Document
          indent(5) do
             
             text "\n<b><u>ABL Helpline Numbers:</u></b>", :size => 9, :inline_format => true
-            text "1- Head Office (92-42-35909132) (Muhammad Irfan/Asif Sheikh)", :size => 9
+            text "1- Head Office (92-42-35909132) (Muhammad Irfan/Ali Haider)", :size => 9
             text "2- Region Office (92-42-35747603) (Muhammad Ali)",:size => 9
         end
         

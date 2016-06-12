@@ -80,10 +80,14 @@
                                 	Instructions
                                 
                                 	<ol>
-                                        <li><p align = "left">Read Undertaking and terms and conditions carefully.</p></li>
-                                        <li><p align = "left">Accept Undertaking, Download Fee Voucher and Submit it to any branch of Allied Bank in Pakistan.</p</li>
-                                        <li><p align = "left">Take Photo or Scan submitted Fee voucher and Upload here.</p></li>
-                                        <li><p align = "left">If you don't have scanner facility, send photocopy of paid voucher back to LUMS on the following address:</p></li>
+                                        <li><p align = "left">Read the Instructions carefully.</p></li>
+                                        <li><p align = "left">Under the <b>Offer Letter</b> Tab, read the letter and check mark the box at the bottom, than press the next button.</p</li>
+                                        <li><p align = "left">In Undertaking Tab, clearly read out the undertaking/ confirmations and check mark the box below as your acknowledgement, than press the next button.</p></li>
+                                        <li><p align = "left">In Fee Voucher Tab download a copy of your fee payment voucher(in case you are living outside Lahore).</p></li>
+                                        <li><p align = "left">Pay the requisite amount in any ABL branch</p></li>
+                                        <li><p align = "left">Under the same Fee Voucher tab, upload a scanned copy of your paid fee voucher.</p></li>
+                                        <li><p align = "left">This ends your online registration process.</p></li>
+                                    
                                     </ol>
                                 
                                 </label>
@@ -117,9 +121,15 @@
                             <div class="sf_columns column_6">
                                 <div id = "utext">
                                 I, <b><%= @student.name %></b> son/daughter of <b><%= @student.father_name %></b> resident of <b><%= @student.address1 %>,<%= @student.address2 %>,<%= @student.address3 %></b>
-                                confirm my participation in the coaching session being held at LUMS, from July 18th, 2016 to August 1st, 2016.
-                                <br/>Moreover, I have checked my profile information and it is correct.
+                                hereby declare that I have read all the rules and general information carefully and will abide by them during my stay at LUMS.
                                 </div>
+                                <b><font color="red">NOTE: “Invitation to participants for coaching session will stand cancelled, if confirmation is not received on time”</font></b>
+                                <div id = "utext"><b>ADHERENCE POLICY:</b><br/>
+                            Students are expected to fully participate in the program to take full advantage of learning opportunities at LUMS. We advise you to attend all the classes and assessments for the successful completion of your coaching session.<br/>
+ 
+                            “Absenteeism and late arrivals in classes/ assessments will be monitored closely. If a student is found missing up to 2 sessions of any subject or any of the examinations, he/ she will be disqualified from the programme with immediate effect.”<br/>
+ 
+                            Please return this form through any courier service latest by 30th June, 2016 along with all the other supporting documents.</div>
                             </div>
                             <hr/>
                             <div class="sf-check">
@@ -129,19 +139,27 @@
                             </div>
                          </li>
                     </ul>
-                    
+                    <% if @student.boarder == true %>
                     <ul class="sf-content"> <!-- form step four --> 
-                         <li>
+                     
+                    <li>
                             <div class="sf_columns column_6">
                                 Download Fee Voucher<br/><br/>
                                 <%= link_to "Download Fee Voucher", student_path(@student, format: "pdf"), target: "_blank", :class => "btn btn-primary", :role => "button" %> 
                                 <hr/>Upload Fee Receipt<br/><br/>
                                 <%= link_to "Upload Fee Voucher", url_for(:controller => "undertakings", :action => "upload"),  :class => "btn btn-primary", :role => "button"  %>
-      <%= link_to "View Uploaded Fee Voucher", url_for(:controller => "undertakings", :action => "displayfile", id: Student.where(:username => current_user.email).take.tracking_id),target: "_blank",  :class => "btn btn-primary", :role => "button"  %>
+                                  <%= link_to "View Uploaded Fee Voucher", url_for(:controller => "undertakings", :action => "displayfile", id: Student.where(:username => current_user.email).take.tracking_id),target: "_blank",  :class => "btn btn-primary", :role => "button"  %>
                             
                             </div>
-                         </li>
+                     </li>
+                     </ul>
+                    <% else %>
+                    <ul class="sf-content">
+                    As you are from Lahore, you don't need to submit any fee voucher. Please click on "Submit Undetaking: and then Log out.<br/><br/>
+                    <%= link_to "Submit Undertaking", url_for(:controller => "undertakings", :action => "day_scholar", id: Student.where(:username => current_user.email).take.tracking_id),  :class => "btn btn-primary", :role => "button"  %>
                     </ul>
+                    <% end %>
+                    
                     
                 </div>
                 
