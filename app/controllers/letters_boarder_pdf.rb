@@ -16,7 +16,7 @@ class LettersBoarderPdf < Prawn::Document
    def make_file(student)
         move_down 65
         # indent(10) do
-          text "June 10th,2016",inline_format: true,:size => 11
+          text "June 14th,2016",inline_format: true,:size => 11
           move_down 10
           text "#{student.name.titleize()}",inline_format: true,:size => 11
           if student.address1
@@ -49,7 +49,7 @@ class LettersBoarderPdf < Prawn::Document
           move_down 10
           text "<b>The NOP ID assigned to you is #{student.tracking_id}. It is a unique ID which will be used to track your application throughout the admission process.</b>",:size => 11,:inline_format => true
           move_down 10
-          text "We have created your online accounts on a web based application which is easily accessible through your mobile phones/ PCs/ Laptops from your homes/ colleges. To log on use the following link: www.nopscs.lums.edu.pk. ",:size => 11,:inline_format => true
+          text "We have created your online accounts on a web based application which is easily accessible through your mobile phones/ PCs/ Laptops from your homes/ colleges. To log on use the following link: nopscs.lums.edu.pk. ",:size => 11,:inline_format => true
           move_down 10
           text "Through your account, you will be able to download your invitation letter, payment voucher and submit your online confirmation to attend the session. After making payment of the requisite amount (as stated on your fee voucher), you 
           will be required to upload a scanned copy of your payment receipt so that we are aware of your payment status before you come to LUMS. The username and password is given below for your record.",:size => 11,:inline_format => true
@@ -84,7 +84,7 @@ class LettersBoarderPdf < Prawn::Document
           text "<b>Please note that this is not an admission offer letter.</b> ",:size => 11,:inline_format => true
           move_down 10
           text "Best Regards,",:size => 11,:inline_format => true
-          move_down 10
+          move_down 60
           text "Shandana Mehdi,
           Deputy Manager - NOP Centre
           Lahore University of Management Sciences (LUMS)",:size =>11,:inline_format => true
@@ -92,7 +92,7 @@ class LettersBoarderPdf < Prawn::Document
           move_down 30
         
             text "<b><u>Enclosures:</u></b>
-            1.Mailing Label | 2.Rules & Regulations | 3.Undertaking Form | 4.How to accept your NOP SCS Invitation | 5.Mailing Label",:size =>11,:inline_format => true
+            1.General Information  | 2.Rules & Regulations | 3.Undertaking Form | 4.How to accept your NOP SCS Invitation | 5.Mailing Label | 6.Fee Voucher",:size =>11,:inline_format => true
         
         
         # end
