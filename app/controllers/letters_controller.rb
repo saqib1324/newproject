@@ -28,6 +28,24 @@ class LettersController < ApplicationController
         end
     end
   end
+  def day_scholar_letter
+    respond_to do |format|
+      format.html
+      format.pdf do
+          pdf = DayscholarPdf.new()
+          send_data pdf.render, filename: "letters'.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
+  end
+  def boarder_letter
+    respond_to do |format|
+    format.html
+    format.pdf do
+        pdf = LettersBoarderPdf.new()
+        send_data pdf.render, filename: "letters'.pdf", type: "application/pdf", disposition: "inline"
+    end
+  end
+  end
   
   def edit
       @letter=Letter.find(params[:id])

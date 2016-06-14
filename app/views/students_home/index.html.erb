@@ -2,7 +2,7 @@
 <div id="dashboard-con">
     <div class="admin-content-con">
         <div id = "btext">
-            Last date for submission of hostel dues – 29th June 2016<br/>
+            Last date for submission of security/laundry dues – 29th June 2016<br/>
             Last date for uploading a scanned copy of the paid voucher – 30th June 2016<br/>
             Last date for acceptance of invitation (online or by post) – 30th June 2016<br/>
         </div>
@@ -41,7 +41,7 @@
 <% else %>
 
     <div id = "btext">
-        Last date for submission of hostel dues – 29th June 2016<br/>
+        Last date for submission of security/laundry dues – 29th June 2016<br/>
         Last date for uploading a scanned copy of the paid voucher – 30th June 2016<br/>
         Last date for acceptance of invitation (online or by post) – 30th June 2016<br/>
     	<!--<h1>IDEABOX - Multipurpose Step Form.js</h1>-->
@@ -77,12 +77,11 @@
                          <li>
                             <div class="sf_columns column_6">
                                 <label class="sf-select">
-                                	Instructions
-                                
+
                                 	<ol>
                                         <li><p align = "left">Read the Instructions carefully.</p></li>
-                                        <li><p align = "left">Under the <b>Offer Letter</b> Tab, read the letter and check mark the box at the bottom, than press the next button.</p</li>
-                                        <li><p align = "left">In Undertaking Tab, clearly read out the undertaking/ confirmations and check mark the box below as your acknowledgement, than press the next button.</p></li>
+                                        <li><p align = "left">Under the <b>Offer Letter</b> Tab, read the letter and check mark the box at the bottom, then press the next button.</p</li>
+                                        <li><p align = "left">In Undertaking Tab, clearly read out the undertaking/ confirmations and check mark the box below as your acknowledgement, then press the next button.</p></li>
                                         <li><p align = "left">In Fee Voucher Tab download a copy of your fee payment voucher(in case you are living outside Lahore).</p></li>
                                         <li><p align = "left">Pay the requisite amount in any ABL branch</p></li>
                                         <li><p align = "left">Under the same Fee Voucher tab, upload a scanned copy of your paid fee voucher.</p></li>
@@ -120,22 +119,25 @@
                          <li>
                             <div class="sf_columns column_6">
                                 <div id = "utext">
-                                I, <b><%= @student.name %></b> son/daughter of <b><%= @student.father_name %></b> resident of <b><%= @student.address1 %>,<%= @student.address2 %>,<%= @student.address3 %></b>
+                                <p align = "left">
+                                I,&nbsp;&nbsp;<b><%= @student.name %></b>&nbsp;&nbsp; son/daughter of &nbsp;&nbsp;<b><%= @student.father_name %></b> &nbsp;&nbsp;resident of <b><%= @student.address1 %>,<%= @student.address2 %>,<%= @student.address3 %></b>&nbsp;&nbsp;
                                 hereby declare that I have read all the rules and general information carefully and will abide by them during my stay at LUMS.
+                                </p>
                                 </div>
-                                <b><font color="red">NOTE: “Invitation to participants for coaching session will stand cancelled, if confirmation is not received on time”</font></b>
-                                <div id = "utext"><b>ADHERENCE POLICY:</b><br/>
-                            Students are expected to fully participate in the program to take full advantage of learning opportunities at LUMS. We advise you to attend all the classes and assessments for the successful completion of your coaching session.<br/>
+                                <b><p align = "left"><font color="red">NOTE: “Invitation to participants for coaching session will stand cancelled, if confirmation is not received on time”</font></b>
+                                <div id = "utext"><p align = "left"><b>ADHERENCE POLICY:</b><br/><br/>
+                            Students are expected to fully participate in the program to take full advantage of learning opportunities at LUMS. We advise you to attend all the classes and assessments for the successful completion of your coaching session.<br/><br/>
  
-                            “Absenteeism and late arrivals in classes/ assessments will be monitored closely. If a student is found missing up to 2 sessions of any subject or any of the examinations, he/ she will be disqualified from the programme with immediate effect.”<br/>
+                            “Absenteeism and late arrivals in classes/ assessments will be monitored closely. If a student is found missing up to 2 sessions of any subject or any of the examinations, he/ she will be disqualified from the programme with immediate effect.”<br/><br/>
  
-                            Please return this form through any courier service latest by 30th June, 2016 along with all the other supporting documents.</div>
+
                             </div>
+                            
                             <hr/>
                             <div class="sf-check">
                                 
                                     <!--<label><input type="checkbox" value="test" name="test" data-required="true"><span></span> I certify that I will adhere to the policies stated in the undertaking</label>-->
-                                    <label><input type="checkbox" value="test" name="test" data-required="true"><span></span> I certify that I have accepted my NOP Summer Coaching Session 2016 Invitation and will attend the session starting on Monday, 18th July 2016.</label>
+                                    <label><input type="checkbox" value="test" name="test" data-required="true"><span></span> Me and my parents certify that I have accepted my NOP Summer Coaching Session 2016 Invitation and will attend the session starting on Monday, 18th July 2016.</label>
                             </div>
                          </li>
                     </ul>
@@ -155,7 +157,7 @@
                      </ul>
                     <% else %>
                     <ul class="sf-content">
-                    As you are from Lahore, you don't need to submit any fee voucher. Please click on "Submit Undetaking: and then Log out.<br/><br/>
+                    As you are from Lahore, you don't need to submit any fee voucher. Please click on "Submit Undertaking" and then Log out.<br/><br/>
                     <%= link_to "Submit Undertaking", url_for(:controller => "undertakings", :action => "day_scholar", id: Student.where(:username => current_user.email).take.tracking_id),  :class => "btn btn-primary", :role => "button"  %>
                     </ul>
                     <% end %>

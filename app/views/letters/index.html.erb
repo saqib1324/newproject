@@ -3,8 +3,17 @@
     <header>
       <strong><class="page_title">Edit Letter Text</strong>
       <div class = "divider pull-right">
-        <%= link_to "Download Letters", letter_path(@letter, format: "pdf"), target: "_blank", :class => "btn btn-primary", :role => "button" %>
+        <%= link_to "Download Letters", letter_path(@letter, format: "pdf"), target: "_blank", :class => "btn btn-xs btn-primary", :role => "button" %>
+       </div>
+
+            <div class = "divider pull-right">
+      <%= link_to "Day scholar letters", url_for(:controller => :letters, :action => :day_scholar_letter, format: "pdf" ), target: "_blank", :class => "btn btn-xs btn-primary", :role => "button" %> 
       </div>
+      <div class = "divider pull-right">
+       <%= link_to "Boarder letters", url_for(:controller => :letters, :action => :boarder_letter, format: "pdf" ), target: "_blank", :class => "btn btn-xs btn-primary", :role => "button"  %> 
+      </div>
+      
+     
     </header>
     <div class="content-inner">
       <div class="form-wrapper">

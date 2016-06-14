@@ -197,8 +197,27 @@
                       </button>
                     </nav>
                   </div>
+                  
                   <div class="col-md-7">
+
                     <ul class="pull-right">
+                      
+                      
+                 <!--   <li>-->
+                 <!--   <div class = " pull-right">-->
+                 <!-- <  @active_session = CoachingSession.where(:status => true).take.name %>-->
+                 <!-- < @student = Student.find_by_username(current_user.email) %>-->
+                 <!--< undertaking = Undertaking.where(:tracking_id => @student.tracking_id, :session => @active_session,:status => true) %>-->
+                 <!-- <  if undertaking %>-->
+                 <!--    undertaking status submitted-->
+                 <!-- < else %>-->
+                 <!--    not submitted-->
+                 <!-- < end %>-->
+                 <!--   </div>-->
+                 <!--     </li>-->
+                      
+                      
+                      
                       <li id="welcome" class="hidden-xs">DataBurj Student Panel</li>
                       <li class="fixed-width">
                         <a href="#">
@@ -214,7 +233,9 @@
                           <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                           <a class="logout"><%= link_to "Log Out", destroy_user_session_path, :method => 'delete' %></a>
                       </li>
+
                     </ul>
+
                   </div>
                 </header>
                 </div>

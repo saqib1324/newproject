@@ -123,7 +123,7 @@ class VoucherMappingsController < ApplicationController
     workbook = package.workbook
     workbook.add_worksheet(name: "Basic work sheet") do |sheet|
       vouchers.each do |vc|
-        sheet.add_row [Date.today.to_formatted_s(:number),vc.voucher_no,"NOP Summer Coaching Session","-",vc.total_amount,vc.tracking_id,"-","System UID","-",vc.name,0,"-",vc.payment_deadline,vc.payment_deadline], :types => [nil,:string]
+        sheet.add_row [Date.today.to_formatted_s(:number),vc.voucher_no,"NOP Summer Coaching Session","-",vc.total_amount,vc.tracking_id,"-",vc.tracking_id,"-",vc.name,0,"-",vc.payment_deadline,vc.payment_deadline,"NEW"], :types => [nil,:string]
       end
     end
     send_data package.to_stream.read, :filename => "voucher_details.xlsx"

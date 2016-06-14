@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'voucher_mappings/bulk_download'
   get 'voucher_mappings/download_csv'
   get 'voucher_mappings/delete_all'
+  get 'letters/day_scholar_letter'
+  get 'letters/boarder_letter'
   get 'coaching_sessions/index'
   get 'undertakings/pending'
   get 'undertakings/upload'
