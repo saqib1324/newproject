@@ -177,81 +177,10 @@ class StudentVoucherPdf < Prawn::Document
             indent (5) do
                 text "<u><b>Mode of payment:</b></u>", :size=> 9, :inline_format => true
             end
-            # text "Voucher can be paid through cash, Pay order and Bank Drafts made in favor of \"Lahore University of Management Sciences\" at" +
-            # " any branch of Allied Bank Limited within Pakistan.", :size => 10
-            # text "For online credit/card payment, please visit https://pay.lums.edu.pk"
-            
-            
-            i=1
-  
-            text "\n"
-            ["Voucher can be paid through cash, Pay order and Bank Drafts made in favor of \"Lahore University of Management Sciences\" at" +
-            " any branch of Allied Bank Limited within Pakistan.","For online credit/card payment please visit http:// pay.lums.edu.pk","Vouchers" + 
-            " can also be paid through ATM machines and internet banking portals of the following banks:"].each() do |list_item|
-
-  
-            float do
-                bounding_box [28,cursor], :width => 20 do
-                  text "   #{i}\.  ", :size => 10
-                   i = i + 1
-                end
+            indent (10) do
+                text "Voucher can be paid through cash, Pay order and Bank Drafts made in favor of \"Lahore University of Management Sciences\" at" +
+                " any branch of Allied Bank Limited within Pakistan.", :size=> 9, :inline_format => true
             end
-
-  
-            bounding_box [50,cursor], :width => 208 do
-                text list_item, :size => 9
-                text "\n"
-            end
-              
-
-
-            end#list_item end
-           i=1 
-            move_up 10
-            ["Allied Bank Limited",
-            "Askari Bank Limited",
-            "Bank Alfalah Limited",
-            "Meezan Bank Limited",
-            "Standard Chartered (Only for online payments)",
-            "Bank Al-Habib",
-            ].each() do |list_item2|
-
-          #create a bounding box for the list-item label
-          #float it so that the cursor doesn't move down
-                # move_up 5
-                  float do
-                    bounding_box [50,cursor], :width => 13,:height =>10 do
-                      text "#{i}. ", :size => 9
-                      i=i+1
-                    end
-                  end
-                
-                  #create a bounding box for the list-item content
-                  bounding_box [60,cursor], :width => 600, :height => 10 do
-                    #   move_up 5
-                    text list_item2, :size => 9
-                    # move_up 5
-                  end
-                
-                  #provide a space between list-items
-                #   move_down(5)
-            
-            end #list item 2 end
-            
-            
-        indent(6) do
-            text "Note:",:style => :bold, :size => 9
-            text "For making payments through internet banking portals/ATM, students need to have bank account in respective bank.",:inline_format => true, :size => 9
-        end        
-      
-        indent(5) do
-            
-            text "\nFor more details regarding mode of Payment as mentioned above, please visit http:// lums.edu.pk/student-payments ", :size => 9
-            text "\n<b><u>Advance Tax:</u></b>", :size => 9, :inline_format => true
-            text "Through an amendment in the income tax ordinance 2001 by finance Act 2013 Advance Tax (under section  2361)"+
-            "shall be collected @ 5% on entire amount of fee except refundable portion.", :size => 9
-        end
-        
          indent(5) do
             
             text "\n<b><u>ABL Helpline Numbers:</u></b>", :size => 9, :inline_format => true
